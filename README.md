@@ -80,13 +80,20 @@ Never expose service-role keys or other secrets in frontend code or commit them 
 
 Development
 
-Install frontend dependencies:
+Frontend dependencies are not part of the current backend setup. The `frontend/` directory is reserved for the React app.
 
-cd frontend
-npm install
-npm run dev
+Backend:
 
-Set up the backend virtual environment and install dependencies according to the project's Python configuration. Start FastAPI using the configured application entry point.
+```bash
+cp .env.example .env
+cd backend
+python -m venv .venv
+source .venv/bin/activate
+pip install -e ".[dev]"
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+```
+
+Apply `backend/supabase/migrations/001_initial_schema.sql` in the Supabase SQL editor before calling catalog, order, or contact endpoints. Optional sample data is in `backend/scripts/seed.sql`. See `backend/README.md` for the API list.
 
 To run the containerized application after Docker configuration is complete:
 
