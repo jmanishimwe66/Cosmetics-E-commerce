@@ -64,11 +64,9 @@ Environment Configuration
 
 Create environment files based on .env.example.
 
-Frontend environment variables:
+Frontend environment variable:
 
-VITE_SUPABASE_URL
-
-VITE_SUPABASE_ANON_KEY
+VITE_API_URL — optional. Defaults to http://localhost:8000. The storefront talks only to the API and does not use a service-role key.
 
 Backend environment variables, where needed:
 
@@ -80,7 +78,15 @@ Never expose service-role keys or other secrets in frontend code or commit them 
 
 Development
 
-Frontend dependencies are not part of the current backend setup. The `frontend/` directory is reserved for the React app.
+Frontend, from the repository root:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+The storefront runs at http://localhost:5173. Start the API first so the sample catalog can load. Docker Compose runs the API only; the frontend stays on npm.
 
 Backend:
 
