@@ -13,17 +13,17 @@ export function Header() {
 
   return (
     <header className="site-header">
-      <div className="top-banner">
-        <Link className="top-brand" to="/" aria-label="GRECE FOV home">
-          <span>GRECE FOV</span>
-          <span className="brand-dot" aria-hidden="true" />
-        </Link>
-      </div>
       <div className="nav-shell">
         <div className="nav-bar">
           <div className="nav-brand-group">
-            <Link className="nav-wordmark" to="/">
-              GRECE FOV<sup>*</sup>
+            <Link className="nav-wordmark nav-logo-link" to="/" aria-label="GRECE FOV Cycles home">
+              <img
+                className="nav-logo"
+                src="/grece-fov-logo.png"
+                alt="GRECE FOV Cycles"
+                width={160}
+                height={72}
+              />
             </Link>
           </div>
           <nav className="nav" aria-label="Primary">

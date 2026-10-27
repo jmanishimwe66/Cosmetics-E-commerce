@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import { useCart } from "../cart/context.ts"
-import { lineTotal, sumTotals } from "../lib/price.ts"
+import { formatRwf, lineTotal, sumTotals } from "../lib/price.ts"
 
 export function CartPage() {
   const { lines, setQuantity, removeItem } = useCart()
@@ -29,7 +29,7 @@ export function CartPage() {
                   <Link className="line-title" to={`/shop/${line.slug}`}>
                     {line.name}
                   </Link>
-                  <p className="meta">Sample price {line.unitPrice}</p>
+                  <p className="meta">{formatRwf(line.unitPrice)} each</p>
                 </div>
                 <div className="qty">
                   <button

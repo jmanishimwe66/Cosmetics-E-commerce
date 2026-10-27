@@ -39,7 +39,7 @@ export function ShowcaseBand() {
         ))}
       </div>
 
-      <div className="why-band">
+      <div className="why-band why-coffee">
         <img
           className="why-photo"
           src={photo("1536147116438-62679a5e01f2", 1200)}

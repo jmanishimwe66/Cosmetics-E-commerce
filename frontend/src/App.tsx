@@ -6,6 +6,7 @@ import { ConfirmationPage } from "./pages/ConfirmationPage.tsx"
 import { ContactPage } from "./pages/ContactPage.tsx"
 import { HomePage } from "./pages/HomePage.tsx"
 import { NotFoundPage } from "./pages/NotFoundPage.tsx"
+import { PolicyPage } from "./pages/PolicyPage.tsx"
 import { OrderPage } from "./pages/OrderPage.tsx"
 import { ProductPage } from "./pages/ProductPage.tsx"
 import { ShopPage } from "./pages/ShopPage.tsx"
@@ -25,6 +26,7 @@ export default function App() {
             <Route path="order" element={<OrderPage />} />
             <Route path="order/confirmation" element={<ConfirmationPage />} />
             <Route path="contact" element={<ContactPage />} />
+            <Route path="policies/:slug" element={<PolicyPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>

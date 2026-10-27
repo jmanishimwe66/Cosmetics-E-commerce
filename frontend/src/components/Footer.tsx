@@ -1,17 +1,101 @@
 import { Link } from "react-router-dom"
 
+import { InstagramIcon, PinterestIcon, TikTokIcon } from "./FooterIcons.tsx"
+
+const exploreLinks = [
+  { to: "/shop", label: "SHOP ALL" },
+  { to: "/story", label: "ABOUT" },
+  { to: "/contact", label: "CONTACT US" },
+] as const
+
+const infoLinks = [
+  { to: "/policies/faqs", label: "FAQS" },
+  { to: "/policies/privacy", label: "PRIVACY POLICY" },
+  { to: "/policies/returns", label: "RETURNS POLICY" },
+  { to: "/policies/terms", label: "TERMS OF SERVICE" },
+] as const
+
+const socials = [
+  { href: "https://pinterest.com", label: "Pinterest", Icon: PinterestIcon },
+  { href: "https://instagram.com", label: "Instagram", Icon: InstagramIcon },
+  { href: "https://tiktok.com", label: "TikTok", Icon: TikTokIcon },
+] as const
+
 export function Footer() {
   return (
-    <footer className="site-footer">
-      <p className="wordmark">GRECE FOV</p>
-      <p>
-        Demonstration catalog. These products are sample data, not the GRECE FOV range.
-      </p>
-      <nav className="footer-nav" aria-label="Footer">
-        <Link to="/story">Story</Link>
-        <Link to="/shop">Shop</Link>
-        <Link to="/contact">Contact</Link>
-      </nav>
+    <footer className="border-t border-gray-300 bg-[#F4F2EC] text-[#1a120f]">
+      <div className="grid grid-cols-1 md:grid-cols-4">
+        <div className="flex flex-col gap-6 border-b border-gray-300 px-6 py-10 md:border-b-0 md:border-r md:py-12 md:pl-8 md:pr-6">
+          <Link to="/" className="inline-block w-fit" aria-label="GRECE FOV Cycles home">
+            <img
+              className="footer-logo"
+              src="/grece-fov-logo.png"
+              alt="GRECE FOV Cycles"
+              width={200}
+              height={90}
+            />
+          </Link>
+          <div className="flex items-center gap-4">
+            {socials.map(({ href, label, Icon }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                className="inline-flex h-11 w-11 items-center justify-center text-[#1a120f] transition-opacity hover:opacity-65"
+              >
+                <Icon className="h-5 w-5" />
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-4 border-b border-gray-300 px-6 py-10 md:border-b-0 md:border-r md:py-12 md:px-8">
+          <h2 className="text-xs font-bold tracking-[0.18em] text-[#1a120f]">OUR COLLECTION</h2>
+          <p className="max-w-xs text-sm leading-relaxed text-[#3f2a22]/85">
+            Considered coffee-born care to take you from morning ritual to evening restore.
+          </p>
+          <p className="mt-auto text-[0.7rem] leading-relaxed tracking-wide text-[#3f2a22]/70">
+            A portfolio venture under Safari Strive Accelerator
+          </p>
+        </div>
+
+        <nav
+          className="flex flex-col gap-2 border-b border-gray-300 px-6 py-10 md:border-b-0 md:border-r md:py-12 md:px-8"
+          aria-label="Explore"
+        >
+          <h2 className="text-xs font-bold tracking-[0.18em] text-[#1a120f]">EXPLORE</h2>
+          <ul className="flex flex-col gap-1">
+            {exploreLinks.map(({ to, label }) => (
+              <li key={label}>
+                <Link
+                  to={to}
+                  className="text-[0.68rem] font-bold tracking-[0.16em] text-[#1a120f] transition-opacity hover:opacity-65"
+                >
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <nav className="flex flex-col gap-2 px-6 py-10 md:py-12 md:px-8" aria-label="Information">
+          <h2 className="text-xs font-bold tracking-[0.18em] text-[#1a120f]">INFORMATION</h2>
+          <ul className="flex flex-col gap-1">
+            {infoLinks.map(({ to, label }) => (
+              <li key={label}>
+                <Link
+                  to={to}
+                  className="text-[0.68rem] font-bold tracking-[0.16em] text-[#1a120f] transition-opacity hover:opacity-65"
+                >
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
     </footer>
   )
 }

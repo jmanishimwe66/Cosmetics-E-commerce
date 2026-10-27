@@ -1,15 +1,18 @@
-import { EditorialBand } from "../components/EditorialBand.tsx"
+import { HomeProductSection } from "../components/HomeProductSection.tsx"
 import { ShowcaseBand } from "../components/ShowcaseBand.tsx"
-import { heroPhoto } from "../lib/photos.ts"
+import { landingHeroPhoto } from "../lib/photos.ts"
 
 export function HomePage() {
   return (
     <div className="storefront-stack home-cover">
       <section className="hero-banner" aria-label="Introduction">
-        <img className="hero-banner-img" src={heroPhoto.src} alt={heroPhoto.alt} />
+        <img
+          className="hero-banner-img hero-banner-img--landing"
+          src={landingHeroPhoto.src}
+          alt={landingHeroPhoto.alt}
+        />
         <div className="hero-banner-scrim" />
         <div className="hero-banner-copy">
-          <span className="pill-tag light">GRECE FOV Demonstration</span>
           <h1>
             Considered Skin Care
             <br />
@@ -23,8 +26,7 @@ export function HomePage() {
 
       <div className="home-sheet">
         <ShowcaseBand />
-
-        <EditorialBand />
+        <HomeProductSection />
       </div>
     </div>
   )

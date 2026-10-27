@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom"
 import { Footer } from "./Footer.tsx"
 import { Header } from "./Header.tsx"
+import { PreFooterBanner } from "./PreFooterBanner.tsx"
 
 export function Layout() {
   return (
@@ -12,6 +13,7 @@ export function Layout() {
       <main id="content" className="site-main">
         <Outlet />
       </main>
+      <PreFooterBanner />
       <Footer />
     </>
   )

@@ -1,0 +1,41 @@
+---
+alwaysApply: true
+---
+# Stack
+- Frontend: <e.g. Next.js + TypeScript + Tailwind>
+- Backend: <e.g. Node/Express + Postgres>
+- Follow existing patterns in the repo before inventing new ones.
+
+# Credit discipline
+- Do the smallest change that solves the task. No unrequested refactors, renames, or "improvements".
+- Never rewrite whole files. Edit only the lines that need to change.
+- Don't re-read files already in context. Read only what the task needs.
+- Don't run broad codebase searches when a file path is given.
+- No long explanations. After a change: 1-3 lines on what changed and why.
+- Don't generate docs, README updates, tests, or comments unless asked.
+- If a task is ambiguous, ask ONE short question instead of guessing and rebuilding.
+- If a task is large, propose a short plan (max 5 bullets) and wait for approval before coding.
+- Don't retry the same failing approach twice. Stop, state the likely cause, propose a different fix.
+- Don't install new dependencies without asking. Prefer what's already in package.json.
+
+# Frontend quality
+- Reuse existing components, hooks, and utils. Search for them first.
+- Small, single-purpose components. Keep files under ~200 lines.
+- Strict TypeScript. No `any`. Type props and API responses.
+- Tailwind/design tokens only. No inline styles or magic numbers.
+- Mobile-first and responsive by default.
+- Every data-driven view handles loading, empty, and error states.
+- Accessibility basics: semantic HTML, labels, alt text, keyboard focus, contrast.
+- No unnecessary re-renders: memoize only when measured or obvious.
+- Forms: validate client-side (zod or equivalent) and show clear errors.
+
+# Backend quality
+- Validate all input. Never trust the client.
+- Return consistent error shapes and proper status codes.
+- Secrets in env vars only. Never hardcode or log them.
+- Keep route handlers thin; put logic in services.
+- Parameterized queries only.
+
+# Output format
+- Show code diffs/snippets, not full files, unless creating a new file.
+- Flag risks or breaking changes in one line.

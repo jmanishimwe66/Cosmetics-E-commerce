@@ -1,14 +1,19 @@
 const unsplash = (id: string, width = 1400) =>
   `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${width}&q=82`
 
+export const landingHeroPhoto = {
+  src: "/assets/landing-hero.jpg",
+  alt: "GRECE FOV body care collection on travertine stone with citrus accents.",
+}
+
 export const heroPhoto = {
-  src: unsplash("1620916297397-a4a5402a3c6c", 1800),
-  alt: "Hand holding a dark cosmetic bottle in soft natural light.",
+  src: "/assets/hero-retreat-collection.jpg",
+  alt: "GRECE FOV body care collection on warm stone and sand.",
 }
 
 export const lineupPhoto = {
-  src: unsplash("1777840347880-747242e0db00", 1600),
-  alt: "Amber skincare bottles and jar arranged on a warm stone surface.",
+  src: "/assets/hero-collection.jpg",
+  alt: "Natural skincare and hair products arranged with moss, stone, and driftwood.",
 }
 
 export const splitLifestylePhoto = {
