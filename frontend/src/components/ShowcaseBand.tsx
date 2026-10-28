@@ -40,16 +40,6 @@ export function ShowcaseBand() {
       </div>
 
       <div className="why-band why-coffee">
-        <img
-          className="why-photo"
-          src={photo("1536147116438-62679a5e01f2", 1200)}
-          alt="Close-up of a green leaf."
-        />
-        <img
-          className="why-photo"
-          src={photo("1526947425960-945c6e72858f", 1200)}
-          alt="Oil pouring from a clear bottle."
-        />
         <div className="why-copy">
           <h2>
             Why we&apos;re
@@ -64,6 +54,18 @@ export function ShowcaseBand() {
           <Link className="showcase-btn" to="/story">
             Read our story
           </Link>
+        </div>
+        <div className="why-photo-grid">
+          <img
+            className="why-photo"
+            src={photo("1536147116438-62679a5e01f2", 1200)}
+            alt="Close-up of a green leaf."
+          />
+          <img
+            className="why-photo"
+            src={photo("1526947425960-945c6e72858f", 1200)}
+            alt="Oil pouring from a clear bottle."
+          />
         </div>
       </div>
     </section>

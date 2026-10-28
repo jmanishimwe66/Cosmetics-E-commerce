@@ -8,8 +8,6 @@ import { ProductSection } from "./ProductSection.tsx"
 export function HomeProductSection() {
   const [products, setProducts] = useState<Product[]>([])
   const [loading, setLoading] = useState(true)
-  const [usingDemo, setUsingDemo] = useState(false)
-
   useEffect(() => {
     let active = true
     async function load() {
@@ -23,7 +21,6 @@ export function HomeProductSection() {
         }
         if (items.length > 0) {
           setProducts(items)
-          setUsingDemo(false)
           return
         }
       } catch {
@@ -31,7 +28,6 @@ export function HomeProductSection() {
       }
       if (!active) return
       setProducts(demoCatalogProducts)
-      setUsingDemo(true)
       setLoading(false)
     }
     void load().finally(() => {
@@ -47,7 +43,6 @@ export function HomeProductSection() {
       products={products}
       limit={3}
       loading={loading}
-      demoNotice={usingDemo ? "Sample cards shown while the catalog API is offline." : undefined}
     />
   )
 }

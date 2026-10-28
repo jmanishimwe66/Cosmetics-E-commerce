@@ -17,7 +17,10 @@ export type ProductCardProps = {
 }
 
 const COFFEE_BTN =
-  "btn-font inline-flex min-h-10 shrink-0 items-center justify-center rounded-full bg-[#3f2a22] px-4 py-2 text-xs font-bold tracking-wide text-white transition-all duration-200 ease-in-out hover:bg-[#2a1c17] active:scale-[0.98]"
+  "btn-font inline-flex min-h-10 shrink-0 items-center justify-center bg-[#3f2a22] px-4 py-2 text-xs font-bold tracking-wide text-white transition-all duration-200 ease-in-out hover:bg-[#2a1c17] active:scale-[0.98]"
+
+const COFFEE_BTN_ADDED =
+  "btn-font inline-flex min-h-10 shrink-0 cursor-default items-center justify-center bg-[#a89888] px-4 py-2 text-xs font-bold tracking-wide text-white"
 
 export function ProductCard({
   title,
@@ -28,11 +31,13 @@ export function ProductCard({
   unitPrice,
   stock,
 }: ProductCardProps) {
-  const { addItem } = useCart()
+  const { addItem, lines } = useCart()
+  const inCart = lines.some((line) => line.productId === productId)
 
   function onAddToCart(event: MouseEvent<HTMLButtonElement>) {
     event.preventDefault()
     event.stopPropagation()
+    if (inCart) return
     addItem({
       productId,
       slug,
@@ -44,9 +49,9 @@ export function ProductCard({
   }
 
   return (
-    <article className="overflow-hidden rounded-3xl bg-white shadow-sm transition-all duration-200 ease-in-out hover:-translate-y-0.5 hover:shadow-md">
+    <article className="overflow-hidden bg-white shadow-sm transition-all duration-200 ease-in-out hover:-translate-y-0.5 hover:shadow-md">
       <Link to={`/shop/${slug}`} className="group block text-[#1a120f] no-underline">
-        <div className="relative aspect-[4/4.2] overflow-hidden rounded-t-3xl bg-[#eceae6]">
+        <div className="relative aspect-[4/4.2] overflow-hidden bg-[#eceae6]">
           {imageUrl ? (
             <img
               src={imageUrl}
@@ -66,8 +71,14 @@ export function ProductCard({
       </Link>
       <div className="mt-4 flex flex-wrap items-end justify-between gap-3 px-4 pb-5 sm:px-5">
         <p className="font-serif text-lg font-semibold text-[#1a120f] sm:text-xl">{price}</p>
-        <button type="button" className={COFFEE_BTN} onClick={onAddToCart}>
-          Add to cart
+        <button
+          type="button"
+          className={inCart ? COFFEE_BTN_ADDED : COFFEE_BTN}
+          onClick={onAddToCart}
+          disabled={inCart}
+          aria-pressed={inCart}
+        >
+          {inCart ? "Added to cart" : "Add to cart"}
         </button>
       </div>
     </article>

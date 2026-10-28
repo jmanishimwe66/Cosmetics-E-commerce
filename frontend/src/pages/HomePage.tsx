@@ -18,8 +18,8 @@ export function HomePage() {
             <br />
             Rooted in Coffee
           </h1>
-          <p>
-            Sample catalog and Unsplash editorial imagery. No payment is taken on order requests.
+          <p className="home-hero-lede">
+            Coffee-born care for daily rituals—browse the collection and checkout on WhatsApp.
           </p>
         </div>
       </section>

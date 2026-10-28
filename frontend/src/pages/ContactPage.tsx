@@ -2,6 +2,9 @@ import { useState } from "react"
 import type { FormEvent } from "react"
 import { ApiError, createContact } from "../api/client.ts"
 
+const businessEmail =
+  import.meta.env.VITE_CONTACT_EMAIL?.trim() || "hello@grecefov.com"
+
 type FieldErrors = {
   name?: string
   email?: string
@@ -48,49 +51,100 @@ export function ContactPage() {
     }
   }
 
+  const mailtoHref = `mailto:${businessEmail}?subject=${encodeURIComponent(
+    subject.trim() || "GRECE FOV enquiry",
+  )}&body=${encodeURIComponent(
+    `Name: ${name.trim()}\nEmail: ${email.trim()}\n\n${message.trim()}`,
+  )}`
+
   return (
-    <section className="page-intro">
-      <p className="eyebrow">Enquiries</p>
-      <h1>Contact</h1>
-      <p className="lede">
-        For a general question or a business enquiry. This form does not place an order.
-      </p>
-      <form className="form" onSubmit={onSubmit} noValidate>
-        <label>
-          Name
-          <input value={name} maxLength={120} autoComplete="name" onChange={(event) => setName(event.target.value)} />
-          {errors.name ? <span className="field-error">{errors.name}</span> : null}
-        </label>
-        <label>
-          Email
-          <input type="email" value={email} autoComplete="email" onChange={(event) => setEmail(event.target.value)} />
-          {errors.email ? <span className="field-error">{errors.email}</span> : null}
-        </label>
-        <label>
-          Subject
-          <input value={subject} maxLength={160} onChange={(event) => setSubject(event.target.value)} />
-          {errors.subject ? <span className="field-error">{errors.subject}</span> : null}
-        </label>
-        <label>
-          Message
-          <textarea value={message} maxLength={4000} onChange={(event) => setMessage(event.target.value)} />
-          {errors.message ? <span className="field-error">{errors.message}</span> : null}
-        </label>
-        {errors.form ? (
-          <p className="status error" role="alert">
-            {errors.form}
-          </p>
-        ) : null}
-        {reference ? (
-          <p className="status" role="status">
-            Message received. Reference {reference}.
-          </p>
-        ) : null}
-        <button className="button" type="submit" disabled={pending}>
-          {pending ? "Sending" : "Send message"}
-        </button>
-      </form>
-    </section>
+    <div className="contact-page">
+      <aside className="contact-sidebar" aria-label="Contact information">
+        <p className="eyebrow">Contact</p>
+        <h1 className="contact-sidebar-title">Get in touch</h1>
+        <p className="prose contact-sidebar-lede">
+          Questions, wholesale, or press—reach the GRECE FOV team. We reply by email.
+        </p>
+        <dl className="contact-details">
+          <div>
+            <dt>Email</dt>
+            <dd>
+              <a href={`mailto:${businessEmail}`}>{businessEmail}</a>
+            </dd>
+          </div>
+          <div>
+            <dt>Location</dt>
+            <dd>Kigali, Rwanda</dd>
+          </div>
+          <div>
+            <dt>Hours</dt>
+            <dd>Mon–Fri, 9:00–17:00 (CAT)</dd>
+          </div>
+        </dl>
+        <p className="contact-sidebar-note">
+          Prefer your own mail app?{" "}
+          <a className="text-link" href={mailtoHref}>
+            Compose an email
+          </a>
+          .
+        </p>
+      </aside>
+
+      <section className="contact-panel" aria-label="Send a message">
+        <h2 className="contact-panel-title">Send a message</h2>
+        <p className="prose contact-panel-lede">
+          Your note is delivered to our inbox. This form does not place an order.
+        </p>
+        <form className="form contact-form" onSubmit={onSubmit} noValidate>
+          <label>
+            Name
+            <input
+              value={name}
+              maxLength={120}
+              autoComplete="name"
+              onChange={(event) => setName(event.target.value)}
+            />
+            {errors.name ? <span className="field-error">{errors.name}</span> : null}
+          </label>
+          <label>
+            Email
+            <input
+              type="email"
+              value={email}
+              autoComplete="email"
+              onChange={(event) => setEmail(event.target.value)}
+            />
+            {errors.email ? <span className="field-error">{errors.email}</span> : null}
+          </label>
+          <label>
+            Subject
+            <input value={subject} maxLength={160} onChange={(event) => setSubject(event.target.value)} />
+            {errors.subject ? <span className="field-error">{errors.subject}</span> : null}
+          </label>
+          <label>
+            Message
+            <textarea value={message} maxLength={4000} onChange={(event) => setMessage(event.target.value)} />
+            {errors.message ? <span className="field-error">{errors.message}</span> : null}
+          </label>
+          {errors.form ? (
+            <p className="status error" role="alert">
+              {errors.form}{" "}
+              <a className="text-link" href={mailtoHref}>
+                Send via email instead
+              </a>
+            </p>
+          ) : null}
+          {reference ? (
+            <p className="status" role="status">
+              Message sent to {businessEmail}. Reference {reference}.
+            </p>
+          ) : null}
+          <button className="button" type="submit" disabled={pending}>
+            {pending ? "Sending…" : "Send message"}
+          </button>
+        </form>
+      </section>
+    </div>
   )
 }
 

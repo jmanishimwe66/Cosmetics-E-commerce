@@ -1,66 +1,65 @@
 import { useState } from "react"
 import type { FormEvent } from "react"
-import { Link, useNavigate } from "react-router-dom"
-import { ApiError, createOrder } from "../api/client.ts"
+import { Link } from "react-router-dom"
 import { useCart } from "../cart/context.ts"
 import { lineTotal, sumTotals } from "../lib/price.ts"
+import { whatsAppOrderMessage, whatsAppUrl } from "../lib/whatsapp.ts"
 
 const ORDER_KEY = "grece-fov-order"
 
 type FieldErrors = {
   name?: string
   email?: string
-  address?: string
   form?: string
+}
+
+type ThankYou = {
+  url: string
 }
 
 export function OrderPage() {
   const { lines, clear } = useCart()
-  const navigate = useNavigate()
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [phone, setPhone] = useState("")
-  const [address, setAddress] = useState("")
-  const [notes, setNotes] = useState("")
   const [errors, setErrors] = useState<FieldErrors>({})
   const [pending, setPending] = useState(false)
+  const [thankYou, setThankYou] = useState<ThankYou | null>(null)
   const subtotal = sumTotals(lines.map((line) => ({ price: line.unitPrice, quantity: line.quantity })))
 
-  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+  function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    const next = validate(name, email, address, lines.length)
+    const next = validate(name, email, lines.length)
     setErrors(next)
     if (Object.keys(next).length > 0) return
 
     setPending(true)
-    try {
-      const order = await createOrder({
-        customer_name: name.trim(),
-        email: email.trim(),
-        phone: phone.trim() || null,
-        shipping_address: address.trim(),
-        notes: notes.trim() || null,
-        items: lines.map((line) => ({ product_id: line.productId, quantity: line.quantity })),
-      })
-      sessionStorage.setItem(ORDER_KEY, JSON.stringify(order))
-      clear()
-      navigate("/order/confirmation")
-    } catch (reason: unknown) {
-      setErrors({
-        form: reason instanceof ApiError ? reason.message : "The order request could not be sent.",
-      })
-      setPending(false)
-    }
+    const message = whatsAppOrderMessage({
+      name,
+      email,
+      phone,
+      subtotal,
+      lines: lines.map((line) => ({
+        name: line.name,
+        quantity: line.quantity,
+        lineTotal: lineTotal(line.unitPrice, line.quantity),
+      })),
+    })
+    const url = whatsAppUrl(message)
+    window.open(url, "_blank", "noopener,noreferrer")
+    clear()
+    setThankYou({ url })
+    setPending(false)
   }
 
-  if (lines.length === 0) {
+  if (lines.length === 0 && !thankYou) {
     return (
       <section className="page-intro">
-        <h1>Order request</h1>
-        <p className="lede">Your cart is empty. Add a sample product before sending a request.</p>
+        <h1>Checkout</h1>
+        <p className="lede">Your cart is empty. Add a product before checkout.</p>
         <div className="actions">
           <Link className="button" to="/shop">
-            Shop the sample
+            Shop
           </Link>
         </div>
       </section>
@@ -69,85 +68,91 @@ export function OrderPage() {
 
   return (
     <section className="page-intro">
-      <p className="eyebrow">No payment</p>
-      <h1>Order request</h1>
-      <p className="lede">This sends an order request. Payment is not taken.</p>
-      <div className="order-layout">
-        <form className="form" onSubmit={onSubmit} noValidate>
-          <label>
-            Name
-            <input value={name} maxLength={120} autoComplete="name" onChange={(event) => setName(event.target.value)} />
-            {errors.name ? <span className="field-error">{errors.name}</span> : null}
-          </label>
-          <label>
-            Email
-            <input
-              type="email"
-              value={email}
-              autoComplete="email"
-              onChange={(event) => setEmail(event.target.value)}
-            />
-            {errors.email ? <span className="field-error">{errors.email}</span> : null}
-          </label>
-          <label>
-            Phone
-            <input
-              value={phone}
-              maxLength={40}
-              autoComplete="tel"
-              onChange={(event) => setPhone(event.target.value)}
-            />
-          </label>
-          <label>
-            Delivery address
-            <textarea
-              value={address}
-              maxLength={500}
-              autoComplete="street-address"
-              onChange={(event) => setAddress(event.target.value)}
-            />
-            {errors.address ? <span className="field-error">{errors.address}</span> : null}
-          </label>
-          <label>
-            Notes
-            <textarea value={notes} maxLength={1000} onChange={(event) => setNotes(event.target.value)} />
-          </label>
-          {errors.form ? (
-            <p className="status error" role="alert">
-              {errors.form}
-            </p>
-          ) : null}
-          <button className="button" type="submit" disabled={pending}>
-            {pending ? "Sending request" : "Request this order"}
-          </button>
-        </form>
-        <aside className="summary">
-          <h2>Sample order</h2>
-          <ul>
-            {lines.map((line) => (
-              <li key={line.productId}>
-                <span>
-                  {line.name} × {line.quantity}
-                </span>
-                <span>{lineTotal(line.unitPrice, line.quantity)}</span>
-              </li>
-            ))}
-          </ul>
-          <p className="summary-row">
-            <span className="price-label">Estimated subtotal</span>
-            <span>{subtotal}</span>
+      <h1>Checkout</h1>
+      {thankYou ? (
+        <div className="checkout-thanks" role="dialog" aria-modal="true" aria-labelledby="checkout-thanks-title">
+          <h2 id="checkout-thanks-title">Thank you — we received your order</h2>
+          <p className="prose">
+            Your request is recorded. Continue in WhatsApp to confirm payment and delivery with our
+            team. If the chat did not open, use the button below.
           </p>
-        </aside>
-      </div>
+          <div className="actions">
+            <a
+              className="button whatsapp-btn"
+              href={thankYou.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Continue on WhatsApp
+            </a>
+            <Link className="button secondary" to="/shop">
+              Back to shop
+            </Link>
+          </div>
+        </div>
+      ) : (
+        <div className="order-layout">
+          <form className="form" onSubmit={onSubmit} noValidate>
+            <label>
+              Name
+              <input value={name} maxLength={120} autoComplete="name" onChange={(event) => setName(event.target.value)} />
+              {errors.name ? <span className="field-error">{errors.name}</span> : null}
+            </label>
+            <label>
+              Email
+              <input
+                type="email"
+                value={email}
+                autoComplete="email"
+                onChange={(event) => setEmail(event.target.value)}
+              />
+              {errors.email ? <span className="field-error">{errors.email}</span> : null}
+            </label>
+            <label>
+              Phone
+              <input
+                value={phone}
+                maxLength={40}
+                autoComplete="tel"
+                onChange={(event) => setPhone(event.target.value)}
+              />
+            </label>
+            {errors.form ? (
+              <p className="status error" role="alert">
+                {errors.form}
+              </p>
+            ) : null}
+            <button className="button whatsapp-btn" type="submit" disabled={pending}>
+              {pending ? "Opening WhatsApp…" : "Send order to WhatsApp"}
+            </button>
+          </form>
+          <aside className="summary">
+            <h2>Your order</h2>
+            <ul>
+              {lines.map((line) => (
+                <li key={line.productId}>
+                  <span>
+                    {line.name} × {line.quantity}
+                  </span>
+                  <span>{lineTotal(line.unitPrice, line.quantity)}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="summary-row">
+              <span className="price-label">Estimated subtotal</span>
+              <span>{subtotal}</span>
+            </p>
+          </aside>
+        </div>
+      )}
     </section>
   )
 }
 
-function validate(name: string, email: string, address: string, itemCount: number): FieldErrors {
+function validate(name: string, email: string, itemCount: number): FieldErrors {
   const errors: FieldErrors = {}
   if (name.trim().length < 1) errors.name = "Enter your name."
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) errors.email = "Enter a valid email."
-  if (address.trim().length < 5) errors.address = "Enter a delivery address of at least 5 characters."
   if (itemCount < 1) errors.form = "Your cart is empty."
   return errors
 }

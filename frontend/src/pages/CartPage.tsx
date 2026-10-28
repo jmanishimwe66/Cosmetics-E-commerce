@@ -66,7 +66,7 @@ export function CartPage() {
               {subtotal}
             </p>
             <Link className="button" to="/order">
-              Request this order
+              Checkout
             </Link>
           </div>
         </>

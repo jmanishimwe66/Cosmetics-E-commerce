@@ -25,7 +25,7 @@ export function Footer() {
   return (
     <footer className="border-t border-gray-300 bg-[#F4F2EC] text-[#1a120f]">
       <div className="grid grid-cols-1 md:grid-cols-4">
-        <div className="flex flex-col gap-6 border-b border-gray-300 px-6 py-10 md:border-b-0 md:border-r md:py-12 md:pl-8 md:pr-6">
+        <div className="flex flex-col gap-4 border-b border-gray-300 px-4 py-7 sm:gap-6 sm:px-6 sm:py-9 md:border-b-0 md:border-r md:py-12 md:pl-8 md:pr-6">
           <Link to="/" className="inline-block w-fit" aria-label="GRECE FOV Cycles home">
             <img
               className="footer-logo"
@@ -51,50 +51,59 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 border-b border-gray-300 px-6 py-10 md:border-b-0 md:border-r md:py-12 md:px-8">
+        <div className="flex flex-col gap-3 border-b border-gray-300 px-4 py-7 sm:gap-4 sm:px-6 sm:py-9 md:border-b-0 md:border-r md:py-12 md:px-8">
           <h2 className="text-xs font-bold tracking-[0.18em] text-[#1a120f]">OUR COLLECTION</h2>
-          <p className="max-w-xs text-sm leading-relaxed text-[#3f2a22]/85">
+          <p className="max-w-md text-sm leading-relaxed text-[#3f2a22]/85 md:max-w-xs">
             Considered coffee-born care to take you from morning ritual to evening restore.
           </p>
-          <p className="mt-auto text-[0.7rem] leading-relaxed tracking-wide text-[#3f2a22]/70">
+          <p className="text-[0.65rem] leading-relaxed tracking-wide text-[#3f2a22]/70 sm:text-[0.7rem] md:mt-auto">
             A portfolio venture under Safari Strive Accelerator
           </p>
         </div>
 
-        <nav
-          className="flex flex-col gap-2 border-b border-gray-300 px-6 py-10 md:border-b-0 md:border-r md:py-12 md:px-8"
-          aria-label="Explore"
-        >
-          <h2 className="text-xs font-bold tracking-[0.18em] text-[#1a120f]">EXPLORE</h2>
-          <ul className="flex flex-col gap-1">
-            {exploreLinks.map(({ to, label }) => (
-              <li key={label}>
-                <Link
-                  to={to}
-                  className="text-[0.68rem] font-bold tracking-[0.16em] text-[#1a120f] transition-opacity hover:opacity-65"
-                >
-                  {label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <div className="grid grid-cols-2 border-b border-gray-300 md:contents">
+          <nav
+            className="flex flex-col gap-2 border-r border-gray-300 px-4 py-7 sm:px-6 sm:py-9 md:border-b-0 md:border-r md:py-12 md:px-8"
+            aria-label="Explore"
+          >
+            <h2 className="text-[0.65rem] font-bold tracking-[0.16em] text-[#1a120f] sm:text-xs sm:tracking-[0.18em]">
+              EXPLORE
+            </h2>
+            <ul className="flex flex-col gap-1">
+              {exploreLinks.map(({ to, label }) => (
+                <li key={label}>
+                  <Link
+                    to={to}
+                    className="text-[0.62rem] font-bold tracking-[0.14em] text-[#1a120f] transition-opacity hover:opacity-65 sm:text-[0.68rem] sm:tracking-[0.16em]"
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
 
-        <nav className="flex flex-col gap-2 px-6 py-10 md:py-12 md:px-8" aria-label="Information">
-          <h2 className="text-xs font-bold tracking-[0.18em] text-[#1a120f]">INFORMATION</h2>
-          <ul className="flex flex-col gap-1">
-            {infoLinks.map(({ to, label }) => (
-              <li key={label}>
-                <Link
-                  to={to}
-                  className="text-[0.68rem] font-bold tracking-[0.16em] text-[#1a120f] transition-opacity hover:opacity-65"
-                >
-                  {label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+          <nav
+            className="flex flex-col gap-2 px-4 py-7 sm:px-6 sm:py-9 md:py-12 md:px-8"
+            aria-label="Information"
+          >
+            <h2 className="text-[0.65rem] font-bold tracking-[0.16em] text-[#1a120f] sm:text-xs sm:tracking-[0.18em]">
+              INFORMATION
+            </h2>
+            <ul className="flex flex-col gap-1">
+              {infoLinks.map(({ to, label }) => (
+                <li key={label}>
+                  <Link
+                    to={to}
+                    className="text-[0.62rem] font-bold tracking-[0.14em] text-[#1a120f] transition-opacity hover:opacity-65 sm:text-[0.68rem] sm:tracking-[0.16em]"
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
       </div>
     </footer>
   )
