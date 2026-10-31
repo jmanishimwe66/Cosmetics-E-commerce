@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom"
 
+import { businessEmail } from "../lib/contact.ts"
 import { brandLogo } from "../lib/brandAssets.ts"
-import { InstagramIcon, PinterestIcon, TikTokIcon } from "./FooterIcons.tsx"
+import { whatsAppInboxMessage, whatsAppUrl } from "../lib/whatsapp.ts"
+import { GmailIcon, InstagramIcon } from "./FooterIcons.tsx"
+import { WhatsAppIcon } from "./WhatsAppIcon.tsx"
 
 const exploreLinks = [
   { to: "/shop", label: "SHOP ALL" },
@@ -17,16 +20,16 @@ const infoLinks = [
 ] as const
 
 const socials = [
-  { href: "https://pinterest.com", label: "Pinterest", Icon: PinterestIcon },
-  { href: "https://instagram.com", label: "Instagram", Icon: InstagramIcon },
-  { href: "https://tiktok.com", label: "TikTok", Icon: TikTokIcon },
+  { href: "https://instagram.com", label: "Instagram", Icon: InstagramIcon, external: true },
+  { href: whatsAppUrl(whatsAppInboxMessage()), label: "WhatsApp", Icon: WhatsAppIcon, external: true },
+  { href: `mailto:${businessEmail}`, label: "Gmail", Icon: GmailIcon, external: false },
 ] as const
 
 export function Footer() {
   return (
     <footer className="border-t border-gray-300 bg-[#F4F2EC] text-[#1a120f]">
       <div className="grid grid-cols-1 md:grid-cols-4">
-        <div className="flex flex-row items-center justify-between gap-3 border-b border-gray-300 px-4 py-7 sm:px-6 sm:py-9 md:flex-col md:items-start md:gap-6 md:border-b-0 md:border-r md:py-12 md:pl-8 md:pr-6">
+        <div className="flex flex-col items-start gap-1 border-b border-gray-300 px-4 py-7 sm:px-6 sm:py-9 md:gap-1.5 md:border-b-0 md:border-r md:py-12 md:pl-8 md:pr-6">
           <Link to="/" className="inline-block w-fit shrink-0" aria-label="GRECE FOV Cycles home">
             <img
               className="footer-logo"
@@ -37,14 +40,13 @@ export function Footer() {
             />
           </Link>
           <div className="flex shrink-0 items-center gap-1 sm:gap-2 md:gap-4">
-            {socials.map(({ href, label, Icon }) => (
+            {socials.map(({ href, label, Icon, external }) => (
               <a
                 key={label}
                 href={href}
-                target="_blank"
-                rel="noopener noreferrer"
+                {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                 aria-label={label}
-                className="inline-flex h-11 w-11 items-center justify-center text-[#1a120f] transition-opacity hover:opacity-65"
+                className="inline-flex h-9 w-9 items-center justify-center text-[#1a120f] transition-opacity hover:opacity-65"
               >
                 <Icon className="h-5 w-5" />
               </a>

@@ -1,4 +1,4 @@
-const DEFAULT_WHATSAPP = "250788000000"
+const DEFAULT_WHATSAPP = "250782023206"
 
 export function whatsAppNumber(): string {
   const raw = import.meta.env.VITE_WHATSAPP_NUMBER?.trim() || DEFAULT_WHATSAPP

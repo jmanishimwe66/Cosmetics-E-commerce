@@ -1,10 +1,8 @@
 import { useState } from "react"
 import type { FormEvent } from "react"
 import { createContact } from "../api/client.ts"
+import { businessEmail } from "../lib/contact.ts"
 import { userErrorMessage } from "../lib/userError.ts"
-
-const businessEmail =
-  import.meta.env.VITE_CONTACT_EMAIL?.trim() || "hello@grecefov.com"
 
 type FieldErrors = {
   name?: string
