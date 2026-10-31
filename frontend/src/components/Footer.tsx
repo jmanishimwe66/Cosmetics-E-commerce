@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 
+import { brandLogo } from "../lib/brandAssets.ts"
 import { InstagramIcon, PinterestIcon, TikTokIcon } from "./FooterIcons.tsx"
 
 const exploreLinks = [
@@ -25,17 +26,17 @@ export function Footer() {
   return (
     <footer className="border-t border-gray-300 bg-[#F4F2EC] text-[#1a120f]">
       <div className="grid grid-cols-1 md:grid-cols-4">
-        <div className="flex flex-col gap-4 border-b border-gray-300 px-4 py-7 sm:gap-6 sm:px-6 sm:py-9 md:border-b-0 md:border-r md:py-12 md:pl-8 md:pr-6">
-          <Link to="/" className="inline-block w-fit" aria-label="GRECE FOV Cycles home">
+        <div className="flex flex-row items-center justify-between gap-3 border-b border-gray-300 px-4 py-7 sm:px-6 sm:py-9 md:flex-col md:items-start md:gap-6 md:border-b-0 md:border-r md:py-12 md:pl-8 md:pr-6">
+          <Link to="/" className="inline-block w-fit shrink-0" aria-label="GRECE FOV Cycles home">
             <img
               className="footer-logo"
-              src="/grece-fov-logo.png"
+              src={brandLogo}
               alt="GRECE FOV Cycles"
-              width={200}
-              height={90}
+              width={320}
+              height={177}
             />
           </Link>
-          <div className="flex items-center gap-4">
+          <div className="flex shrink-0 items-center gap-1 sm:gap-2 md:gap-4">
             {socials.map(({ href, label, Icon }) => (
               <a
                 key={label}
@@ -57,24 +58,21 @@ export function Footer() {
             Considered coffee-born care to take you from morning ritual to evening restore.
           </p>
           <p className="text-[0.65rem] leading-relaxed tracking-wide text-[#3f2a22]/70 sm:text-[0.7rem] md:mt-auto">
-            A portfolio venture under Safari Strive Accelerator
+            Built by Safari Strives
           </p>
         </div>
 
-        <div className="grid grid-cols-2 border-b border-gray-300 md:contents">
-          <nav
-            className="flex flex-col gap-2 border-r border-gray-300 px-4 py-7 sm:px-6 sm:py-9 md:border-b-0 md:border-r md:py-12 md:px-8"
-            aria-label="Explore"
-          >
+        <div className="footer-nav-pair border-b border-gray-300 px-4 py-7 sm:px-6 sm:py-9 md:border-b-0 md:border-r md:py-12 md:px-8">
+          <nav className="flex flex-col gap-1.5" aria-label="Explore">
             <h2 className="text-[0.65rem] font-bold tracking-[0.16em] text-[#1a120f] sm:text-xs sm:tracking-[0.18em]">
               EXPLORE
             </h2>
-            <ul className="flex flex-col gap-1">
+            <ul className="flex flex-col gap-0.5">
               {exploreLinks.map(({ to, label }) => (
                 <li key={label}>
                   <Link
                     to={to}
-                    className="text-[0.62rem] font-bold tracking-[0.14em] text-[#1a120f] transition-opacity hover:opacity-65 sm:text-[0.68rem] sm:tracking-[0.16em]"
+                    className="text-[0.62rem] font-bold tracking-[0.14em] text-[#1a120f] no-underline transition-opacity hover:opacity-65 sm:text-[0.68rem] sm:tracking-[0.16em]"
                   >
                     {label}
                   </Link>
@@ -83,19 +81,16 @@ export function Footer() {
             </ul>
           </nav>
 
-          <nav
-            className="flex flex-col gap-2 px-4 py-7 sm:px-6 sm:py-9 md:py-12 md:px-8"
-            aria-label="Information"
-          >
+          <nav className="flex flex-col gap-1.5" aria-label="Information">
             <h2 className="text-[0.65rem] font-bold tracking-[0.16em] text-[#1a120f] sm:text-xs sm:tracking-[0.18em]">
               INFORMATION
             </h2>
-            <ul className="flex flex-col gap-1">
+            <ul className="flex flex-col gap-0.5">
               {infoLinks.map(({ to, label }) => (
                 <li key={label}>
                   <Link
                     to={to}
-                    className="text-[0.62rem] font-bold tracking-[0.14em] text-[#1a120f] transition-opacity hover:opacity-65 sm:text-[0.68rem] sm:tracking-[0.16em]"
+                    className="text-[0.62rem] font-bold tracking-[0.14em] text-[#1a120f] no-underline transition-opacity hover:opacity-65 sm:text-[0.68rem] sm:tracking-[0.16em]"
                   >
                     {label}
                   </Link>

@@ -21,3 +21,13 @@ class ConflictError(AppError):
 class BadRequestError(AppError):
     def __init__(self, detail: str) -> None:
         super().__init__(400, detail)
+
+
+class UnauthorizedError(AppError):
+    def __init__(self, detail: str = "Sign in required") -> None:
+        super().__init__(401, detail)
+
+
+class ForbiddenError(AppError):
+    def __init__(self, detail: str = "Admin access required") -> None:
+        super().__init__(403, detail)

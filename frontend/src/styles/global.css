@@ -2,8 +2,8 @@
 @import "tailwindcss/utilities.css";
 
 @theme {
-  --font-serif: "Cormorant Garamond", "Times New Roman", serif;
-  --font-sans: "Cormorant Garamond", "Times New Roman", serif;
+  --font-serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-sans: "Cormorant Garamond", Georgia, "Times New Roman", serif;
   --font-button: "Inter", ui-sans-serif, system-ui, sans-serif;
   --radius-xs: 0;
   --radius-sm: 0;
@@ -29,7 +29,7 @@
   --gutter: clamp(0.45rem, 1vw, 0.85rem);
   --stack-gap: clamp(0.65rem, 1vw, 0.9rem);
   --card-pad: clamp(1rem, 2.2vw, 1.85rem);
-  --header-offset: 2.85rem;
+  --header-offset: 3.35rem;
   --font-button: "Inter", ui-sans-serif, system-ui, sans-serif;
   --story-chapter-height: calc(
     100svh - var(--header-offset) - var(--gutter) - 1.5rem
@@ -52,7 +52,7 @@ body {
   min-height: 100vh;
   background: var(--ivory);
   color: var(--espresso);
-  font-family: "Cormorant Garamond", "Times New Roman", serif;
+  font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif;
   font-weight: 600;
   font-size: 1.05rem;
   line-height: 1.55;
@@ -124,9 +124,19 @@ a.button,
 a.pill-btn,
 a.showcase-btn,
 .btn-font,
-.pre-footer-cta {
+.pre-footer-cta,
+a.btn-font,
+a.pre-footer-cta {
   font-family: var(--font-button);
   font-weight: 600;
+  text-decoration: none;
+}
+
+a.btn-font:hover,
+a.pre-footer-cta:hover,
+a.btn-font:focus-visible,
+a.pre-footer-cta:focus-visible {
+  text-decoration: none;
 }
 
 .pre-footer-banner {
@@ -233,7 +243,8 @@ a.showcase-btn,
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   gap: 0.35rem 0.65rem;
-  padding: 0.35rem 0;
+  padding: 0.45rem 0;
+  min-height: var(--header-offset);
 }
 
 .nav-menu-toggle {
@@ -365,15 +376,29 @@ body.nav-drawer-open {
 .footer-logo {
   width: auto;
   height: auto;
-  max-height: clamp(2.85rem, 7vw, 4rem);
-  max-width: min(11rem, 42vw);
   object-fit: contain;
   object-position: left center;
 }
 
+.nav-logo {
+  display: block;
+  height: clamp(2.35rem, 7.5vw, 3.1rem);
+  width: auto;
+  max-width: min(11.5rem, 58vw);
+}
+
 .footer-logo {
-  max-height: clamp(3.5rem, 10vw, 5.5rem);
-  max-width: min(13rem, 70vw);
+  display: block;
+  height: clamp(2.75rem, 8.5vw, 4rem);
+  width: auto;
+  max-width: min(14rem, 85vw);
+}
+
+@media (max-width: 767px) {
+  .footer-logo {
+    height: 2.5rem;
+    max-width: 9.5rem;
+  }
 }
 
 .nav a {
@@ -425,7 +450,7 @@ body.nav-drawer-open {
 
 .home-cover .hero-banner-copy {
   width: 100%;
-  max-width: 22rem;
+  max-width: 28rem;
   padding-inline: 0.25rem;
 }
 
@@ -437,6 +462,22 @@ body.nav-drawer-open {
 .home-cover .home-hero-lede {
   font-size: clamp(0.95rem, 3.6vw, 1.05rem);
   line-height: 1.45;
+}
+
+.home-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.65rem;
+  margin-top: clamp(4.5rem, 12vw, 6.25rem);
+}
+
+.home-hero-actions .pill-btn {
+  min-height: 2.75rem;
+  padding-inline: 1rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
 /* Shop: full-viewport hero, normal scroll (no sticky overlay) */
@@ -525,7 +566,13 @@ body.nav-drawer-open {
   align-self: center;
 }
 
-.best-sellers-copy h2,
+.best-sellers-copy h2 {
+  font-size: clamp(1.55rem, 5.5vw, 2.45rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
 .why-copy h2 {
   font-size: clamp(2rem, 8vw, 3.6rem);
   line-height: 0.92;
@@ -642,7 +689,7 @@ body.nav-drawer-open {
 
   .best-sellers {
     grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.15fr);
-    align-items: center;
+    align-items: stretch;
     align-content: center;
     min-height: 100svh;
     padding: clamp(2.5rem, 6vw, 4rem) clamp(1rem, 2.5vw, 1.8rem) clamp(4rem, 10vw, 8rem);
@@ -652,10 +699,13 @@ body.nav-drawer-open {
     grid-column: auto;
   }
 
-  .best-sellers .best-tile {
-    min-height: clamp(14rem, 52svh, 28rem);
-    max-height: min(62svh, 34rem);
-    height: 100%;
+  .best-sellers .best-tile,
+  .best-sellers .best-tile:last-child {
+    aspect-ratio: auto;
+    min-height: clamp(16rem, 52svh, 30rem);
+    max-height: min(68svh, 36rem);
+    height: auto;
+    align-self: stretch;
   }
 
   .best-sellers .best-tile:last-child {
@@ -665,27 +715,38 @@ body.nav-drawer-open {
   .why-band {
     display: grid;
     grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr) minmax(0, 0.95fr);
+    grid-template-rows: minmax(0, 1fr);
+    align-items: stretch;
     height: 80svh;
+    min-height: clamp(28rem, 80svh, 42rem);
   }
 
   .why-photo-grid {
     grid-column: 1 / 3;
+    grid-row: 1;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: minmax(0, 1fr);
+    align-items: stretch;
     gap: clamp(0.35rem, 1vw, 0.55rem);
     padding: 0;
     min-height: 0;
+    height: 100%;
   }
 
   .why-copy {
     grid-column: 3;
+    grid-row: 1;
   }
 
   .why-band .why-photo {
+    display: block;
+    width: 100%;
     min-height: 0;
     height: 100%;
     max-height: none;
     aspect-ratio: auto;
+    object-fit: cover;
   }
 
   .why-copy {
@@ -1631,6 +1692,87 @@ button.city-pill {
   background: var(--beige);
 }
 
+.footer-nav-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem 2rem;
+  align-content: start;
+}
+
+body.policy-modal-open {
+  overflow: hidden;
+}
+
+.policy-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--gutter);
+  background: rgba(26, 18, 15, 0.55);
+}
+
+.policy-panel {
+  width: min(36rem, 100%);
+  max-height: min(85svh, 40rem);
+  display: flex;
+  flex-direction: column;
+  background: var(--ivory);
+  border: 1px solid var(--line);
+  box-shadow: 0 24px 48px rgba(26, 18, 15, 0.2);
+}
+
+.policy-panel-head {
+  position: relative;
+  padding: 1.25rem 1.25rem 0.75rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.policy-panel-head h1 {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  padding-right: 4rem;
+}
+
+.policy-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  min-height: 2.25rem;
+  padding: 0.4rem 0.85rem;
+  border: 1px solid var(--coffee);
+  background: transparent;
+  color: var(--coffee);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.policy-panel-body {
+  overflow-y: auto;
+  padding: 1rem 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.policy-panel-body h2 {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--coffee);
+}
+
+.policy-panel-body .prose {
+  margin-top: 0.35rem;
+  font-weight: 400;
+  line-height: 1.55;
+  color: #3f2a22;
+}
+
 .toolbar {
   margin-top: 1.25rem;
 }
@@ -1768,6 +1910,17 @@ button.city-pill {
   color: var(--espresso);
 }
 
+.user-alert {
+  display: grid;
+  gap: 0.75rem;
+  justify-items: start;
+  margin: 0 0 1rem;
+}
+
+.user-alert--info .status {
+  color: var(--coffee);
+}
+
 .form {
   display: grid;
   gap: 1.15rem;
@@ -1814,10 +1967,7 @@ button.city-pill {
   width: 100%;
   margin-top: calc(var(--gutter) * -1);
   margin-inline: 0;
-  height: calc(100svh - var(--header-offset) - var(--gutter) - 1.5rem);
-  max-height: calc(100svh - var(--header-offset) - var(--gutter) - 1.5rem);
   min-height: 0;
-  overflow: hidden;
   background: #f4f2ec;
 }
 
@@ -1825,8 +1975,6 @@ button.city-pill {
 .contact-panel {
   padding: clamp(1.5rem, 4vw, 2.75rem);
   min-height: 0;
-  max-height: 100%;
-  overflow-y: auto;
 }
 
 .contact-sidebar {
@@ -1922,6 +2070,15 @@ button.city-pill {
   .contact-page {
     grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
     align-items: stretch;
+    height: calc(100svh - var(--header-offset) - var(--gutter) - 1.5rem);
+    max-height: calc(100svh - var(--header-offset) - var(--gutter) - 1.5rem);
+    overflow: hidden;
+  }
+
+  .contact-sidebar,
+  .contact-panel {
+    max-height: 100%;
+    overflow-y: auto;
   }
 
   .contact-sidebar {

@@ -22,6 +22,13 @@ export function PdpPurchase({
   const navigate = useNavigate()
   const inStock = product.stock > 0
   const price = formatSamplePrice(product.price)
+  const summary = product.subtitle?.trim() || product.description
+  const ingredients =
+    product.ingredients?.trim() ||
+    "Coffee-derived actives, plant oils, and gentle surfactants chosen for daily use. Full INCI listing available on request for this demonstration formula."
+  const useStorage =
+    product.use_storage?.trim() ||
+    "Apply to clean skin or hair as directed. Store away from direct heat and sunlight. Patch test before first use."
 
   function buyNow() {
     onAddToCart()
@@ -35,9 +42,9 @@ export function PdpPurchase({
       </h1>
       <p className="mt-4 font-serif text-lg font-bold text-[#1a120f]">{price}</p>
 
-      {product.description ? (
+      {summary ? (
         <p className="mt-6 max-w-lg font-serif text-lg leading-relaxed text-[#3f2a22]/90">
-          {product.description}
+          {summary}
         </p>
       ) : null}
 
@@ -102,14 +109,12 @@ export function PdpPurchase({
           {
             id: "ingredients",
             title: "INGREDIENTS",
-            body:
-              "Coffee-derived actives, plant oils, and gentle surfactants chosen for daily use. Full INCI listing available on request for this demonstration formula.",
+            body: ingredients,
           },
           {
             id: "use",
             title: "USE & STORAGE",
-            body:
-              "Apply to clean skin or hair as directed. Store away from direct heat and sunlight. Patch test before first use.",
+            body: useStorage,
           },
         ]}
       />

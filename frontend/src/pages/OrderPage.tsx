@@ -1,8 +1,10 @@
 import { useState } from "react"
 import type { FormEvent } from "react"
 import { Link } from "react-router-dom"
+import { createOrder } from "../api/client.ts"
 import { useCart } from "../cart/context.ts"
 import { lineTotal, sumTotals } from "../lib/price.ts"
+import { userErrorMessage } from "../lib/userError.ts"
 import { whatsAppOrderMessage, whatsAppUrl } from "../lib/whatsapp.ts"
 
 const ORDER_KEY = "grece-fov-order"
@@ -15,6 +17,7 @@ type FieldErrors = {
 
 type ThankYou = {
   url: string
+  popupBlocked: boolean
 }
 
 export function OrderPage() {
@@ -27,13 +30,14 @@ export function OrderPage() {
   const [thankYou, setThankYou] = useState<ThankYou | null>(null)
   const subtotal = sumTotals(lines.map((line) => ({ price: line.unitPrice, quantity: line.quantity })))
 
-  function onSubmit(event: FormEvent<HTMLFormElement>) {
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const next = validate(name, email, lines.length)
     setErrors(next)
     if (Object.keys(next).length > 0) return
 
     setPending(true)
+    setErrors({})
     const message = whatsAppOrderMessage({
       name,
       email,
@@ -46,9 +50,27 @@ export function OrderPage() {
       })),
     })
     const url = whatsAppUrl(message)
-    window.open(url, "_blank", "noopener,noreferrer")
+
+    try {
+      await createOrder({
+        customer_name: name.trim(),
+        email: email.trim(),
+        phone: phone.trim() || null,
+        shipping_address: "To be confirmed on WhatsApp",
+        notes: phone.trim() ? `Phone: ${phone.trim()}` : null,
+        items: lines.map((line) => ({ product_id: line.productId, quantity: line.quantity })),
+      })
+    } catch (reason: unknown) {
+      setErrors({
+        form: userErrorMessage(reason, "Your order could not be saved. Please try again."),
+      })
+      setPending(false)
+      return
+    }
+
+    const popupBlocked = window.open(url, "_blank", "noopener,noreferrer") === null
     clear()
-    setThankYou({ url })
+    setThankYou({ url, popupBlocked })
     setPending(false)
   }
 
@@ -74,7 +96,10 @@ export function OrderPage() {
           <h2 id="checkout-thanks-title">Thank you — we received your order</h2>
           <p className="prose">
             Your request is recorded. Continue in WhatsApp to confirm payment and delivery with our
-            team. If the chat did not open, use the button below.
+            team.
+            {thankYou.popupBlocked
+              ? " Your browser blocked the chat window—use the button below to open WhatsApp."
+              : " If the chat did not open, use the button below."}
           </p>
           <div className="actions">
             <a
@@ -123,7 +148,7 @@ export function OrderPage() {
               </p>
             ) : null}
             <button className="button whatsapp-btn" type="submit" disabled={pending}>
-              {pending ? "Opening WhatsApp…" : "Send order to WhatsApp"}
+              {pending ? "Saving your order…" : "Send order to WhatsApp"}
             </button>
           </form>
           <aside className="summary">

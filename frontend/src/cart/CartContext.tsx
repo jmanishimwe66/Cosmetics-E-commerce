@@ -9,8 +9,17 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [lines, setLines] = useState<CartLine[]>(readCart)
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(lines))
+    writeCart(lines)
   }, [lines])
+
+  useEffect(() => {
+    function onStorage(event: StorageEvent) {
+      if (event.key !== STORAGE_KEY) return
+      setLines(readCart())
+    }
+    window.addEventListener("storage", onStorage)
+    return () => window.removeEventListener("storage", onStorage)
+  }, [])
 
   const value = useMemo<CartContextValue>(() => {
     return {
@@ -76,6 +85,14 @@ function readCart(): CartLine[] {
     return parsed.filter(isCartLine)
   } catch {
     return []
+  }
+}
+
+function writeCart(lines: CartLine[]): void {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(lines))
+  } catch {
+    /* the cart stays in memory when the browser refuses storage */
   }
 }
 

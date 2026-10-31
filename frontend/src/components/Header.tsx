@@ -1,6 +1,7 @@
 import { useEffect, useId, useState } from "react"
 import { Link, NavLink } from "react-router-dom"
 import { useCart } from "../cart/context.ts"
+import { brandLogo } from "../lib/brandAssets.ts"
 
 const links = [
   { to: "/", label: "Home", end: true },
@@ -62,10 +63,10 @@ export function Header() {
             >
               <img
                 className="nav-logo"
-                src="/grece-fov-logo.png"
+                src={brandLogo}
                 alt="GRECE FOV Cycles"
-                width={160}
-                height={72}
+                width={320}
+                height={177}
               />
             </Link>
           </div>

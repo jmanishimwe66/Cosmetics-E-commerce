@@ -11,11 +11,19 @@ class Product(BaseModel):
     category_name: str | None = None
     name: str
     slug: str
+    subtitle: str | None = None
     description: str | None = None
+    sku: str | None = None
+    ingredients: str | None = None
+    use_storage: str | None = None
+    reminds_us_of: str | None = None
+    sustainability_note: str | None = None
     price: Decimal
     image_url: str | None = None
+    images: list[str] = Field(default_factory=list)
     stock: int
     is_featured: bool
+    is_active: bool = True
 
 
 class ProductList(BaseModel):

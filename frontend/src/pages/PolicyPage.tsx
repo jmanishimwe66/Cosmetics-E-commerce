@@ -1,37 +1,75 @@
-import { Link, useParams } from "react-router-dom"
+import { useEffect } from "react"
+import { useNavigate, useParams } from "react-router-dom"
 
-const titles: Record<string, string> = {
-  faqs: "FAQs",
-  privacy: "Privacy Policy",
-  returns: "Returns Policy",
-  terms: "Terms of Service",
-}
+import { policies } from "../content/policies.ts"
 
 export function PolicyPage() {
-  const { slug } = useParams()
-  const key = slug ?? ""
-  const title = titles[key]
+  const { slug = "" } = useParams()
+  const navigate = useNavigate()
+  const content = policies[slug]
 
-  if (!title) {
+  useEffect(() => {
+    if (!content) return undefined
+
+    function close() {
+      if (window.history.length > 1) navigate(-1)
+      else navigate("/")
+    }
+
+    document.body.classList.add("policy-modal-open")
+
+    function onKey(event: KeyboardEvent) {
+      if (event.key === "Escape") close()
+    }
+    window.addEventListener("keydown", onKey)
+
+    return () => {
+      document.body.classList.remove("policy-modal-open")
+      window.removeEventListener("keydown", onKey)
+    }
+  }, [content, navigate])
+
+  function close() {
+    if (window.history.length > 1) navigate(-1)
+    else navigate("/")
+  }
+
+  if (!content) {
     return (
       <section className="page-intro">
         <h1>Page not found</h1>
-        <Link to="/">Return home</Link>
+        <button type="button" className="button secondary" onClick={() => navigate("/")}>
+          Return home
+        </button>
       </section>
     )
   }
 
   return (
-    <section className="page-intro">
-      <p className="eyebrow">Information</p>
-      <h1>{title}</h1>
-      <p className="lede">
-        Placeholder policy copy for the GRECE FOV demonstration storefront. Replace with legal text
-        before launch.
-      </p>
-      <Link className="text-link" to="/contact">
-        Contact us
-      </Link>
-    </section>
+    <div className="policy-overlay" role="presentation" onClick={close}>
+      <div
+        className="policy-panel"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="policy-title"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <div className="policy-panel-head">
+          <p className="eyebrow">Information</p>
+          <h1 id="policy-title">{content.title}</h1>
+          <button type="button" className="policy-close btn-font" onClick={close}>
+            Close
+          </button>
+        </div>
+        <div className="policy-panel-body">
+          {content.sections.map((section) => (
+            <section key={section.heading}>
+              <h2>{section.heading}</h2>
+              <p className="prose">{section.body}</p>
+            </section>
+          ))}
+        </div>
+      </div>
+    </div>
   )
 }

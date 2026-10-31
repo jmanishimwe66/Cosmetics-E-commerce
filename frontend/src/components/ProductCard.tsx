@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 
 import type { Product } from "../api/types.ts"
 import { useCart } from "../cart/context.ts"
-import { samplePhotos } from "../lib/photos.ts"
+import { productCoverUrl } from "../lib/productMedia.ts"
 import { formatSamplePrice } from "../lib/price.ts"
 
 export type ProductCardProps = {
@@ -86,7 +86,7 @@ export function ProductCard({
 }
 
 export function ProductCardFromCatalog({ product }: { product: Product }) {
-  const imageUrl = product.image_url || samplePhotos[product.slug] || ""
+  const imageUrl = productCoverUrl(product)
   return (
     <ProductCard
       title={product.name}
@@ -101,7 +101,7 @@ export function ProductCardFromCatalog({ product }: { product: Product }) {
 }
 
 export function ProductMedia({ product }: { product: Product }) {
-  const src = product.image_url || samplePhotos[product.slug]
+  const src = productCoverUrl(product)
   if (src) {
     return <img className="media" src={src} alt={product.name} loading="lazy" />
   }

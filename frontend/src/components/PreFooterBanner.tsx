@@ -29,7 +29,7 @@ export function PreFooterBanner() {
           href={inboxUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="pre-footer-cta btn-font mt-6 inline-flex max-w-[min(100%,15rem)] items-center justify-center gap-1.5 bg-[#3f2a22] px-5 py-2 text-[0.65rem] font-bold tracking-[0.16em] text-white transition-colors hover:bg-[#2a1c17] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3f2a22] sm:mt-8 sm:max-w-none sm:min-h-11 sm:gap-2 sm:px-8 sm:py-3 sm:text-xs sm:tracking-[0.2em]"
+          className="pre-footer-cta btn-font mt-6 inline-flex max-w-[min(100%,15rem)] items-center justify-center gap-1.5 bg-[#3f2a22] px-5 py-2 text-[0.65rem] font-bold tracking-[0.16em] text-white no-underline transition-colors hover:bg-[#2a1c17] hover:no-underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3f2a22] sm:mt-8 sm:max-w-none sm:min-h-11 sm:gap-2 sm:px-8 sm:py-3 sm:text-xs sm:tracking-[0.2em]"
         >
           <WhatsAppIcon className="h-4 w-4 shrink-0 text-[#25D366] sm:h-5 sm:w-5" />
           Reach us inbox

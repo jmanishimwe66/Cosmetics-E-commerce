@@ -12,11 +12,19 @@ export type Product = {
   category_name: string | null
   name: string
   slug: string
+  subtitle?: string | null
   description: string | null
+  sku?: string | null
+  ingredients?: string | null
+  use_storage?: string | null
+  reminds_us_of?: string | null
+  sustainability_note?: string | null
   price: string | number
   image_url: string | null
+  images?: string[]
   stock: number
   is_featured: boolean
+  is_active?: boolean
 }
 
 export type ProductList = {
@@ -63,4 +71,48 @@ export type ContactRequest = {
 
 export type ContactCreated = {
   id: string
+}
+
+export type AdminProductWrite = {
+  name: string
+  subtitle: string | null
+  category_slug: string
+  sku: string | null
+  price: string
+  stock: number
+  ingredients: string | null
+  use_storage: string | null
+  reminds_us_of: string | null
+  sustainability_note: string | null
+  images: string[]
+}
+
+export type ApiAdminOrderItem = {
+  product_id: string
+  name: string
+  quantity: number
+  unit_price: string | number
+  image_url: string | null
+}
+
+export type ApiAdminOrder = {
+  id: string
+  customer_name: string
+  email: string
+  phone: string | null
+  shipping_address: string
+  notes: string | null
+  status: string
+  payment_status: "paid" | "pending" | "failed"
+  fulfillment_status: "unfulfilled" | "processing" | "shipped" | "delivered"
+  tracking_number: string
+  created_at: string
+  items: ApiAdminOrderItem[]
+  subtotal: string | number
+}
+
+export type ApiOrderPatch = {
+  payment_status?: ApiAdminOrder["payment_status"]
+  fulfillment_status?: ApiAdminOrder["fulfillment_status"]
+  tracking_number?: string
 }

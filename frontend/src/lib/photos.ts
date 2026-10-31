@@ -1,62 +1,80 @@
-const unsplash = (id: string, width = 1400) =>
-  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${width}&q=82`
+import heroLanding from "../assets/images/P1059017 copy.jpg"
+import heroShop from "../assets/images/P1059001 copy.jpg"
+import heroPreFooter from "../assets/images/P1059038 copy.jpg"
+import productBodyWash from "../assets/images/Background Change Design.jpg"
+import productSoapBox from "../assets/images/Background Change Design (1).jpg"
+import productJelly from "../assets/images/Untitled design.jpg"
+import productLipGloss from "../assets/images/Untitled design (1).jpg"
+import coffeeGroundsPour from "../assets/images/coffee-grounds-pour.png"
+import storyWhatWeDo from "../assets/images/P1059003 copy.jpg"
+import storyInspiration from "../assets/images/P1059050 copy.jpg"
+import storyWhereWeAre from "../assets/images/P1059001 copy.jpg"
 
 export const landingHeroPhoto = {
-  src: "/assets/landing-hero.jpg",
-  alt: "GRECE FOV body care collection on travertine stone with citrus accents.",
+  src: heroLanding,
+  alt: "Model holding Tabithy body butter from Grece Fav Cycles.",
 }
 
 export const heroPhoto = {
-  src: "/assets/hero-retreat-collection.jpg",
-  alt: "GRECE FOV body care collection on warm stone and sand.",
+  src: heroPreFooter,
+  alt: "Applying Grece Fav skin treatment.",
 }
 
 export const lineupPhoto = {
-  src: "/assets/hero-collection.jpg",
-  alt: "Natural skincare and hair products arranged with moss, stone, and driftwood.",
-}
-
-export const splitLifestylePhoto = {
-  src: unsplash("1447933601403-0c6688de566e", 1200),
-  alt: "Roasted coffee beans and grounds.",
-}
-
-export const macroTexturePhoto = {
-  src: unsplash("1447753072467-2f56032d1d48", 1200),
-  alt: "Close-up of dark roasted coffee beans.",
+  src: heroShop,
+  alt: "Grece Fav Cycles body butter held after skincare ritual.",
 }
 
 export const samplePhotos: Record<string, string> = {
-  "rosewater-toner": unsplash("1608571423902-eed4a5ad8108", 1100),
-  "daily-moisturizer": unsplash("1585945037805-5fd82c2e60b1", 1100),
-  "soft-matte-lipstick": unsplash("1576426863848-c21f53c60b19", 1100),
-  "repair-shampoo": unsplash("1630682103595-25bd3b95caf2", 1100),
+  "rosewater-toner": productSoapBox,
+  "daily-moisturizer": productJelly,
+  "soft-matte-lipstick": productLipGloss,
+  "repair-shampoo": productBodyWash,
 }
 
-export const productCodes: Record<string, string> = {
-  "daily-moisturizer": "GF-01",
-  "rosewater-toner": "GF-02",
-  "repair-shampoo": "GF-03",
-  "soft-matte-lipstick": "GF-04",
-}
+export const showcaseCollectionTiles = [
+  {
+    src: productBodyWash,
+    alt: "Grece Fav body wash with gold pump.",
+  },
+  {
+    src: productJelly,
+    alt: "Grece Fav jelly jar.",
+  },
+  {
+    src: productLipGloss,
+    alt: "Grece Fav lip gloss.",
+  },
+] as const
+
+export const showcaseWhyPhotos = [
+  {
+    src: coffeeGroundsPour,
+    alt: "Fresh coffee grounds pouring from a scoop.",
+  },
+  {
+    src: storyInspiration,
+    alt: "Coffee-based scrub applied to skin.",
+  },
+] as const
 
 export const storyPhotos = {
   origin: {
-    src: unsplash("1688413467024-c539918fdd7c", 1400),
-    alt: "Hand holding an essential oil bottle in warm daylight.",
+    src: storyWhatWeDo,
+    alt: "Grece Fav body butter in daily skincare ritual.",
   },
   material: {
-    src: unsplash("1447933601403-0c6688de566e", 1400),
-    alt: "Coffee beans and residue texture.",
+    src: productSoapBox,
+    alt: "Tabithy bath soap packaging with natural ingredients.",
   },
   craft: {
-    src: unsplash("1552046122-03184de85e08", 1400),
-    alt: "Formulation bottle on a minimal studio counter.",
+    src: storyWhereWeAre,
+    alt: "Grece Fav body butter product.",
   },
   range: [
-    { src: samplePhotos["rosewater-toner"], alt: "Sample photograph for Rosewater Toner." },
-    { src: samplePhotos["daily-moisturizer"], alt: "Sample photograph for Daily Moisturizer." },
-    { src: samplePhotos["soft-matte-lipstick"], alt: "Sample photograph for Soft Matte Lipstick." },
-    { src: samplePhotos["repair-shampoo"], alt: "Sample photograph for Repair Shampoo." },
+    { src: productSoapBox, alt: "Tabithy bath soap." },
+    { src: productBodyWash, alt: "Grece Fav body wash." },
+    { src: productJelly, alt: "Grece Fav jelly." },
+    { src: productLipGloss, alt: "Grece Fav lip gloss." },
   ],
 }

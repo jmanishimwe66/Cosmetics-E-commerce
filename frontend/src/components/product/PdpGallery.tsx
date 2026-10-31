@@ -1,5 +1,5 @@
 import type { Product } from "../../api/types.ts"
-import { lineupPhoto, samplePhotos } from "../../lib/photos.ts"
+import { productGallerySlides } from "../../lib/productMedia.ts"
 
 type PdpGalleryProps = {
   product: Product
@@ -7,16 +7,8 @@ type PdpGalleryProps = {
   onSelect: (index: number) => void
 }
 
-function gallerySources(product: Product): { src: string; alt: string }[] {
-  const primary = product.image_url || samplePhotos[product.slug] || lineupPhoto.src
-  return [
-    { src: primary, alt: product.name },
-    { src: lineupPhoto.src, alt: lineupPhoto.alt },
-  ]
-}
-
 export function PdpGallery({ product, activeIndex, onSelect }: PdpGalleryProps) {
-  const images = gallerySources(product)
+  const images = productGallerySlides(product)
   const active = images[activeIndex] ?? images[0]
 
   return (

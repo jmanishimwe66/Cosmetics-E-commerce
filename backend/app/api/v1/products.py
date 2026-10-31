@@ -12,6 +12,8 @@ def list_products(
     q: str | None = Query(default=None, max_length=120),
     category_slug: str | None = Query(default=None, max_length=80),
     featured: bool | None = None,
+    in_stock: bool | None = None,
+    sort: str = Query(default="name", pattern="^(name|newest)$"),
     limit: int = Query(default=20, ge=1, le=100),
     offset: int = Query(default=0, ge=0),
     service: ProductService = Depends(product_service_dep),
@@ -20,6 +22,8 @@ def list_products(
         q=q,
         category_slug=category_slug,
         featured=featured,
+        in_stock=in_stock,
+        sort=sort,
         limit=limit,
         offset=offset,
     )

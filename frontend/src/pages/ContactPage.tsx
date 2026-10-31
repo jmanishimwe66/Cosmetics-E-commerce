@@ -1,6 +1,7 @@
 import { useState } from "react"
 import type { FormEvent } from "react"
-import { ApiError, createContact } from "../api/client.ts"
+import { createContact } from "../api/client.ts"
+import { userErrorMessage } from "../lib/userError.ts"
 
 const businessEmail =
   import.meta.env.VITE_CONTACT_EMAIL?.trim() || "hello@grecefov.com"
@@ -44,7 +45,7 @@ export function ContactPage() {
       setMessage("")
     } catch (reason: unknown) {
       setErrors({
-        form: reason instanceof ApiError ? reason.message : "The message could not be sent.",
+        form: userErrorMessage(reason, "Your message could not be sent. Please try again."),
       })
     } finally {
       setPending(false)

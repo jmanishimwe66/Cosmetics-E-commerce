@@ -22,6 +22,12 @@ from (
             'Hair'::text,
             'hair'::text,
             'Shampoo, conditioner, and styling'::text
+        ),
+        (
+            '44444444-4444-4444-4444-444444444444'::uuid,
+            'Body'::text,
+            'body'::text,
+            'Body care'::text
         )
 ) as seed(id, name, slug, description)
 where not exists (

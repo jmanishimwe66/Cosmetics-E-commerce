@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 
 import type { Product } from "../api/types.ts"
 import { ProductCardFromCatalog } from "./ProductCard.tsx"
+import { UserAlert } from "./UserAlert.tsx"
 
 type ProductSectionProps = {
   title?: string
@@ -9,6 +10,8 @@ type ProductSectionProps = {
   shopAllHref?: string
   limit?: number
   loading?: boolean
+  error?: string | null
+  onRetry?: () => void
   className?: string
 }
 
@@ -18,6 +21,8 @@ export function ProductSection({
   shopAllHref = "/shop",
   limit = 3,
   loading = false,
+  error = null,
+  onRetry,
   className = "",
 }: ProductSectionProps) {
   const items = products.slice(0, limit)
@@ -32,10 +37,11 @@ export function ProductSection({
           {title}
         </h2>
       </div>
-      {loading && items.length === 0 ? (
+      {error ? <UserAlert onRetry={onRetry}>{error}</UserAlert> : null}
+      {loading && items.length === 0 && !error ? (
         <p className="font-serif text-lg text-[#3f2a22]/80">Loading collection…</p>
       ) : null}
-      {!loading && items.length === 0 ? (
+      {!loading && items.length === 0 && !error ? (
         <p className="font-serif text-lg text-[#3f2a22]/80">No products to show yet.</p>
       ) : null}
       {items.length > 0 ? (
@@ -45,10 +51,10 @@ export function ProductSection({
               <ProductCardFromCatalog key={product.id} product={product} />
             ))}
           </div>
-          <div className="home-products-foot mt-6 flex justify-center sm:mt-8 sm:justify-start">
+          <div className="home-products-foot mt-6 flex justify-center sm:mt-8">
             <Link
               to={shopAllHref}
-              className="btn-font inline-flex max-w-[min(100%,11.5rem)] items-center justify-center bg-[#1a120f] px-5 py-2 text-xs text-white transition-all duration-200 ease-in-out hover:bg-[#2f211c] active:scale-[0.98] sm:max-w-none sm:min-h-11 sm:px-6 sm:py-2 sm:text-sm"
+              className="btn-font inline-flex max-w-[min(100%,11.5rem)] items-center justify-center bg-[#1a120f] px-5 py-2 text-xs text-white no-underline transition-all duration-200 ease-in-out hover:bg-[#2f211c] hover:no-underline active:scale-[0.98] sm:max-w-none sm:min-h-11 sm:px-6 sm:py-2 sm:text-sm"
             >
               Shop All
             </Link>

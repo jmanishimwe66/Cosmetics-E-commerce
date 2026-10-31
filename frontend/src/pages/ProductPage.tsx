@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 
-import { ApiError, getProduct, listProducts } from "../api/client.ts"
+import { getProduct, listProducts } from "../api/client.ts"
 import type { Product } from "../api/types.ts"
 import { useCart } from "../cart/context.ts"
+import { UserAlert } from "../components/UserAlert.tsx"
 import { PdpGallery } from "../components/product/PdpGallery.tsx"
 import { PdpPurchase } from "../components/product/PdpPurchase.tsx"
 import { PdpRecommendations } from "../components/product/PdpRecommendations.tsx"
-import { demoCatalogProducts, findDemoProduct } from "../lib/demoCatalog.ts"
+import { userErrorMessage } from "../lib/userError.ts"
 export function ProductPage() {
   const { slug = "" } = useParams()
   const { addItem } = useCart()
@@ -21,6 +22,7 @@ export function ProductPage() {
   const [quantity, setQuantity] = useState(1)
   const [notice, setNotice] = useState<string | null>(null)
   const [boundId, setBoundId] = useState("")
+  const [reloadKey, setReloadKey] = useState(0)
 
   useEffect(() => {
     let active = true
@@ -30,21 +32,16 @@ export function ProductPage() {
       })
       .catch((reason: unknown) => {
         if (!active) return
-        const demo = findDemoProduct(slug)
-        if (demo) {
-          setSnapshot({ slug, product: demo, error: null })
-          return
-        }
         setSnapshot({
           slug,
           product: null,
-          error: reason instanceof ApiError ? reason.message : "This product could not be loaded.",
+          error: userErrorMessage(reason, "This product could not be loaded."),
         })
       })
     return () => {
       active = false
     }
-  }, [slug])
+  }, [slug, reloadKey])
 
   useEffect(() => {
     let active = true
@@ -55,7 +52,7 @@ export function ProductPage() {
       })
       .catch(() => {
         if (!active) return
-        setRelated(demoCatalogProducts.filter((item) => item.slug !== slug).slice(0, 4))
+        setRelated([])
       })
     return () => {
       active = false
@@ -109,9 +106,14 @@ export function ProductPage() {
       </div>
 
       {error ? (
-        <p className="status error px-6 py-10">{error}</p>
+        <div className="px-6 py-10">
+          <UserAlert onRetry={() => setReloadKey((key) => key + 1)}>{error}</UserAlert>
+          <Link className="button secondary" to="/shop">
+            Back to shop
+          </Link>
+        </div>
       ) : null}
-      {!product && !error ? <p className="status px-6 py-10">Loading product.</p> : null}
+      {!product && !error ? <p className="status px-6 py-10">Loading product…</p> : null}
 
       {product ? (
         <>
