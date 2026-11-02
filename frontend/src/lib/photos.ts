@@ -8,6 +8,7 @@ import productLipGloss from "../assets/images/Untitled design (1).jpg"
 import coffeeGroundsPour from "../assets/images/coffee-grounds-pour.png"
 import storyWhatWeDo from "../assets/images/P1059003 copy.jpg"
 import storyInspiration from "../assets/images/P1059050 copy.jpg"
+import storyProductLineup from "../assets/images/grece-fav-product-lineup.png"
 import storyWhereWeAre from "../assets/images/P1059001 copy.jpg"
 
 export const landingHeroPhoto = {
@@ -64,8 +65,8 @@ export const storyPhotos = {
     alt: "Grece Fav body butter in daily skincare ritual.",
   },
   material: {
-    src: productSoapBox,
-    alt: "Tabithy bath soap packaging with natural ingredients.",
+    src: storyProductLineup,
+    alt: "Grece Fav and Tabithy body care collection on a marble surface.",
   },
   craft: {
     src: storyWhereWeAre,

@@ -45,6 +45,7 @@ export function OrderPage() {
       subtotal,
       lines: lines.map((line) => ({
         name: line.name,
+        slug: line.slug,
         quantity: line.quantity,
         lineTotal: lineTotal(line.unitPrice, line.quantity),
       })),

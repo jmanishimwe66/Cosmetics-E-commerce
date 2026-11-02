@@ -14,7 +14,12 @@ export function whatsAppInboxMessage(): string {
   return "Hello GRECE FOV Cycles — I would like to reach your inbox."
 }
 
-type OrderLine = { name: string; quantity: number; lineTotal: string }
+type OrderLine = { name: string; slug: string; quantity: number; lineTotal: string }
+
+function productUrl(slug: string): string {
+  const origin = window.location.origin.replace(/\/$/, "")
+  return `${origin}/shop/${encodeURIComponent(slug)}`
+}
 
 export function whatsAppOrderMessage(input: {
   name: string
@@ -24,7 +29,10 @@ export function whatsAppOrderMessage(input: {
   subtotal: string
 }): string {
   const items = input.lines
-    .map((line) => `• ${line.name} × ${line.quantity} — ${line.lineTotal}`)
+    .map(
+      (line) =>
+        `• ${line.name} × ${line.quantity} — ${line.lineTotal}\n  ${productUrl(line.slug)}`,
+    )
     .join("\n")
   const phoneLine = input.phone.trim() ? input.phone.trim() : "Not provided"
   return [
