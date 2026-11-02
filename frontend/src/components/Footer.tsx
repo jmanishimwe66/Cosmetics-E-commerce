@@ -20,16 +20,21 @@ const infoLinks = [
 ] as const
 
 const socials = [
-  { href: "https://instagram.com", label: "Instagram", Icon: InstagramIcon, external: true },
+  {
+    href: "https://www.instagram.com/grece_fav_cycles",
+    label: "Instagram",
+    Icon: InstagramIcon,
+    external: true,
+  },
   { href: whatsAppUrl(whatsAppInboxMessage()), label: "WhatsApp", Icon: WhatsAppIcon, external: true },
   { href: `mailto:${businessEmail}`, label: "Gmail", Icon: GmailIcon, external: false },
 ] as const
 
 export function Footer() {
   return (
-    <footer className="border-t border-gray-300 bg-[#F4F2EC] text-[#1a120f]">
-      <div className="grid grid-cols-1 md:grid-cols-4">
-        <div className="flex flex-col items-start gap-1 border-b border-gray-300 px-4 py-7 sm:px-6 sm:py-9 md:gap-1.5 md:border-b-0 md:border-r md:py-12 md:pl-8 md:pr-6">
+    <footer className="footer-shell w-full border-t border-gray-300 bg-[#F4F2EC] text-[#1a120f]">
+      <div className="footer-grid grid w-full min-w-0 grid-cols-2 md:grid-cols-4">
+        <div className="footer-brand col-span-2 flex flex-col items-start gap-1 border-b border-gray-300 px-4 py-7 sm:px-6 sm:py-9 md:col-span-1 md:gap-1.5 md:border-b-0 md:border-r md:py-12 md:pl-8 md:pr-6">
           <Link to="/" className="inline-block w-fit shrink-0" aria-label="GRECE FOV Cycles home">
             <img
               className="footer-logo"
@@ -54,28 +59,23 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-3 border-b border-gray-300 px-4 py-7 sm:gap-4 sm:px-6 sm:py-9 md:border-b-0 md:border-r md:py-12 md:px-8">
+        <div className="footer-collection col-span-2 flex flex-col gap-3 border-b border-gray-300 px-4 py-7 sm:gap-4 sm:px-6 sm:py-9 md:col-span-1 md:border-b-0 md:border-r md:py-12 md:px-8">
           <h2 className="text-xs font-bold tracking-[0.18em] text-[#1a120f]">OUR COLLECTION</h2>
           <p className="max-w-md text-sm leading-relaxed text-[#3f2a22]/85 md:max-w-xs">
             Considered coffee-born care to take you from morning ritual to evening restore.
           </p>
-          <p className="text-[0.65rem] leading-relaxed tracking-wide text-[#3f2a22]/70 sm:text-[0.7rem] md:mt-auto">
-            Built by Safari Strives
-          </p>
         </div>
 
-        <div className="footer-nav-pair border-b border-gray-300 px-4 py-7 sm:px-6 sm:py-9 md:border-b-0 md:border-r md:py-12 md:px-8">
-          <nav className="flex flex-col gap-1.5" aria-label="Explore">
-            <h2 className="text-[0.65rem] font-bold tracking-[0.16em] text-[#1a120f] sm:text-xs sm:tracking-[0.18em]">
-              EXPLORE
-            </h2>
-            <ul className="flex flex-col gap-0.5">
+        <div className="footer-nav-pair contents">
+          <nav
+            className="footer-nav-block footer-nav-block--explore md:border-r md:px-8 md:py-12"
+            aria-label="Explore"
+          >
+            <h2 className="footer-nav-heading">EXPLORE</h2>
+            <ul className="footer-nav-list">
               {exploreLinks.map(({ to, label }) => (
                 <li key={label}>
-                  <Link
-                    to={to}
-                    className="text-[0.62rem] font-bold tracking-[0.14em] text-[#1a120f] no-underline transition-opacity hover:opacity-65 sm:text-[0.68rem] sm:tracking-[0.16em]"
-                  >
+                  <Link to={to} className="footer-nav-link">
                     {label}
                   </Link>
                 </li>
@@ -83,17 +83,15 @@ export function Footer() {
             </ul>
           </nav>
 
-          <nav className="flex flex-col gap-1.5" aria-label="Information">
-            <h2 className="text-[0.65rem] font-bold tracking-[0.16em] text-[#1a120f] sm:text-xs sm:tracking-[0.18em]">
-              INFORMATION
-            </h2>
-            <ul className="flex flex-col gap-0.5">
+          <nav
+            className="footer-nav-block footer-nav-block--info md:border-r md:px-8 md:py-12"
+            aria-label="Information"
+          >
+            <h2 className="footer-nav-heading">INFORMATION</h2>
+            <ul className="footer-nav-list">
               {infoLinks.map(({ to, label }) => (
                 <li key={label}>
-                  <Link
-                    to={to}
-                    className="text-[0.62rem] font-bold tracking-[0.14em] text-[#1a120f] no-underline transition-opacity hover:opacity-65 sm:text-[0.68rem] sm:tracking-[0.16em]"
-                  >
+                  <Link to={to} className="footer-nav-link">
                     {label}
                   </Link>
                 </li>
@@ -102,6 +100,9 @@ export function Footer() {
           </nav>
         </div>
       </div>
+      <p className="footer-credit-bar border-t border-gray-300 px-4 py-5 text-center text-[0.7rem] leading-relaxed tracking-wide text-[#3f2a22]/70 sm:px-6 md:py-4">
+        Built by Safari Strives
+      </p>
     </footer>
   )
 }

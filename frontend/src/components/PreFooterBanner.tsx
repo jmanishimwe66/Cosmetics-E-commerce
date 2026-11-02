@@ -14,6 +14,9 @@ export function PreFooterBanner() {
         src={heroPhoto.src}
         alt=""
         className="pre-footer-banner-img"
+        width={1920}
+        height={980}
+        loading="lazy"
         decoding="async"
       />
       <div className="absolute inset-0 bg-white/55" aria-hidden="true" />

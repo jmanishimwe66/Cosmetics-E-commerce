@@ -18,7 +18,7 @@ export function ShowcaseBand() {
         </div>
         {showcaseCollectionTiles.map((item) => (
           <div className="best-tile" key={item.src}>
-            <img src={item.src} alt={item.alt} />
+            <img src={item.src} alt={item.alt} loading="lazy" decoding="async" />
           </div>
         ))}
       </div>
@@ -42,7 +42,14 @@ export function ShowcaseBand() {
         </div>
         <div className="why-photo-grid">
           {showcaseWhyPhotos.map((item) => (
-            <img className="why-photo" key={item.src} src={item.src} alt={item.alt} />
+            <img
+              className="why-photo"
+              key={item.src}
+              src={item.src}
+              alt={item.alt}
+              loading="lazy"
+              decoding="async"
+            />
           ))}
         </div>
       </div>

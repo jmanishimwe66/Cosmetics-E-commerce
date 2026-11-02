@@ -16,6 +16,10 @@ export function HomePage() {
           className="hero-banner-img hero-banner-img--landing"
           src={landingHeroPhoto.src}
           alt={landingHeroPhoto.alt}
+          width={1600}
+          height={2400}
+          decoding="async"
+          fetchPriority="high"
         />
         <div className="hero-banner-scrim" />
         <div className="hero-banner-copy">
