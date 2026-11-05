@@ -30,6 +30,7 @@ export function toAdminProduct(product: Product): AdminProduct {
       : []
   return {
     id: product.id,
+    slug: product.slug,
     title: product.name,
     price: catalogPriceToRwf(product.price),
     subtitle: product.subtitle ?? "",

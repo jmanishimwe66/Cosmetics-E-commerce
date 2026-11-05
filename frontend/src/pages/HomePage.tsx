@@ -1,14 +1,11 @@
 import { Link } from "react-router-dom"
 
 import { HomeProductSection } from "../components/HomeProductSection.tsx"
+import { ImpactMetrics } from "../components/ImpactMetrics.tsx"
 import { ShowcaseBand } from "../components/ShowcaseBand.tsx"
-import { WhatsAppIcon } from "../components/WhatsAppIcon.tsx"
 import { landingHeroPhoto } from "../lib/photos.ts"
-import { whatsAppInboxMessage, whatsAppUrl } from "../lib/whatsapp.ts"
 
 export function HomePage() {
-  const whatsAppHref = whatsAppUrl(whatsAppInboxMessage())
-
   return (
     <div className="storefront-stack home-cover">
       <section className="hero-banner" aria-label="Introduction">
@@ -21,32 +18,27 @@ export function HomePage() {
           decoding="async"
           fetchPriority="high"
         />
-        <div className="hero-banner-scrim" />
-        <div className="hero-banner-copy">
-          <h1>
-            Conscious Skincare,
-            <br />
-            Reborn from Coffee
-          </h1>
+        <div className="hero-banner-scrim hero-banner-scrim--strong" />
+        <div className="hero-banner-copy hero-banner-copy--wide">
+          <h1>From Coffee Waste to Made-in-Rwanda Skincare.</h1>
+          <p className="hero-banner-lede">
+            Founded by Umubyeyi Grace in Gisenyi, Grece Fav Cycles creates locally made
+            personal-care products while giving discarded coffee grounds a second life.
+          </p>
           <div className="home-hero-actions">
             <Link className="pill-btn light" to="/shop">
-              Shop the collection
+              Shop the Collection
             </Link>
-            <a
-              className="pill-btn outline-light"
-              href={whatsAppHref}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <WhatsAppIcon className="h-4 w-4 shrink-0 text-[#25D366]" aria-hidden />
-              Order via WhatsApp
-            </a>
+            <Link className="pill-btn outline-light" to="/story">
+              Meet Grace
+            </Link>
           </div>
         </div>
       </section>
 
       <div className="home-sheet">
         <ShowcaseBand />
+        <ImpactMetrics />
         <HomeProductSection />
       </div>
     </div>

@@ -11,23 +11,19 @@ export const policies: Record<string, PolicyContent> = {
     sections: [
       {
         heading: "How do I order?",
-        body: "Browse the shop, add items to your cart, and complete checkout on the site. We confirm details, payment, and delivery with you on WhatsApp.",
-      },
-      {
-        heading: "What currency do you use?",
-        body: "Prices are shown in Rwandan Francs (RWF). Your WhatsApp confirmation will match the total shown at checkout.",
+        body: "Add products to your cart and submit your request. We’ll confirm payment and delivery through WhatsApp.",
       },
       {
         heading: "Where are products made?",
-        body: "Grece Fov Cycles formulas are developed and packaged in Rwanda, working with local coffee-growing communities.",
+        body: "Our products are made in Gisenyi, Rwanda.",
       },
       {
         heading: "Are your products natural?",
-        body: "We upcycle coffee grounds and combine them with plant-based ingredients. Each label lists what is inside—ask us if you need full INCI detail.",
+        body: "Our range includes products developed using repurposed coffee grounds and other ingredients. See individual product descriptions for details.",
       },
       {
         heading: "Shipping and pickup",
-        body: "Delivery options depend on your location in Rwanda. We will confirm timing and any delivery fee when we reply on WhatsApp.",
+        body: "Delivery options, timing, and costs are confirmed through WhatsApp.",
       },
     ],
   },
@@ -44,7 +40,7 @@ export const policies: Record<string, PolicyContent> = {
       },
       {
         heading: "Storage",
-        body: "Order and contact data is stored in our secure database (Supabase). Messages you send on WhatsApp are handled under WhatsApp’s own privacy terms.",
+        body: "Order data is stored in our secure database (Supabase). Messages you send on WhatsApp or email are handled under those providers’ privacy terms.",
       },
       {
         heading: "Your rights",
@@ -61,7 +57,7 @@ export const policies: Record<string, PolicyContent> = {
     sections: [
       {
         heading: "Our approach",
-        body: "We want you to love your Grece Fov care. If something arrives damaged or not as described, contact us within 7 days of delivery.",
+        body: "We want you to love your Grece Fav Cycles care. If something arrives damaged or not as described, contact us within 7 days of delivery.",
       },
       {
         heading: "Eligible returns",
@@ -69,11 +65,11 @@ export const policies: Record<string, PolicyContent> = {
       },
       {
         heading: "How to start a return",
-        body: "Message us on WhatsApp or use the contact form with your order reference, photos if relevant, and the reason for the return. We will reply with next steps.",
+        body: "Message us on WhatsApp or email grecefavcycles01@gmail.com with your order details, photos if relevant, and the reason for the return. We will reply with next steps.",
       },
       {
         heading: "Refunds",
-        body: "Approved refunds are processed to the original payment method where possible, or by mobile money or bank transfer as agreed on WhatsApp.",
+        body: "Approved refunds are processed by mobile money or bank transfer as agreed on WhatsApp after we confirm your return.",
       },
     ],
   },
@@ -82,23 +78,23 @@ export const policies: Record<string, PolicyContent> = {
     sections: [
       {
         heading: "Using this site",
-        body: "This storefront is operated by Grece Fov Cycles. By placing an order or contacting us, you agree to these terms and our privacy policy.",
+        body: "This storefront is operated by Grece Fav Cycles. By placing an order request or contacting us, you agree to these terms and our privacy policy.",
       },
       {
         heading: "Products and pricing",
-        body: "Descriptions and images reflect our range as accurately as possible. Prices may change; the price at checkout applies to your order once confirmed on WhatsApp.",
+        body: "Descriptions and images reflect our range as accurately as possible. Prices may change; the total confirmed on WhatsApp applies to your order.",
       },
       {
         heading: "Orders",
-        body: "Submitting checkout is a request, not a completed sale until we confirm stock, total, and delivery on WhatsApp. We may decline orders if items are unavailable.",
+        body: "Submitting a cart or checkout request is not a completed sale until we confirm stock, total, payment, and delivery on WhatsApp. We may decline orders if items are unavailable.",
       },
       {
         heading: "Limitation",
-        body: "Our liability is limited to the value of your order except where law requires otherwise. Use products as directed on the label; patch test if you have sensitive skin.",
+        body: "Our liability is limited to the value of your order except where law requires otherwise. Use products as directed; patch test if you have sensitive skin.",
       },
       {
         heading: "Contact",
-        body: "Questions about these terms: use the Contact page or WhatsApp. Governing law: Rwanda.",
+        body: "Questions about these terms: use the Contact page, email grecefavcycles01@gmail.com, or WhatsApp. Governing law: Rwanda.",
       },
     ],
   },

@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from "react"
 
-import { listProducts } from "../api/client.ts"
+import { getProduct } from "../api/client.ts"
 import type { Product } from "../api/types.ts"
+import { FEATURED_PRODUCT_SLUGS } from "../lib/featuredProducts.ts"
 import { userErrorMessage } from "../lib/userError.ts"
 import { ProductSection } from "./ProductSection.tsx"
 
@@ -21,10 +22,13 @@ export function HomeProductSection() {
     async function load() {
       setLoading(true)
       try {
-        const latest = await listProducts({ sort: "newest", limit: 3 })
+        const results = await Promise.all(
+          FEATURED_PRODUCT_SLUGS.map((slug) => getProduct(slug).catch(() => null)),
+        )
         if (!active) return
-        setProducts(latest.items)
-        setError(null)
+        const ordered = results.filter((item): item is Product => item !== null)
+        setProducts(ordered)
+        setError(ordered.length === 0 ? "Featured products could not be loaded." : null)
       } catch (reason: unknown) {
         if (!active) return
         setProducts([])
@@ -41,7 +45,7 @@ export function HomeProductSection() {
 
   return (
     <ProductSection
-      title="Featured care"
+      title="Signature Picks"
       products={products}
       limit={3}
       loading={loading}

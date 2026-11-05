@@ -22,13 +22,12 @@ export function PdpPurchase({
   const navigate = useNavigate()
   const inStock = product.stock > 0
   const price = formatSamplePrice(product.price)
-  const summary = product.subtitle?.trim() || product.description
-  const ingredients =
-    product.ingredients?.trim() ||
-    "Coffee-derived actives, plant oils, and gentle surfactants chosen for daily use. Full INCI listing available on request for this demonstration formula."
-  const useStorage =
-    product.use_storage?.trim() ||
-    "Apply to clean skin or hair as directed. Store away from direct heat and sunlight. Patch test before first use."
+  const summary = product.description?.trim() || product.subtitle?.trim() || ""
+  const madeInRwanda =
+    product.subtitle?.toLowerCase().includes("made in rwanda") ||
+    product.description?.toLowerCase().includes("made in rwanda")
+  const ingredients = product.ingredients?.trim() ?? ""
+  const useStorage = product.use_storage?.trim() ?? ""
 
   function buyNow() {
     onAddToCart()
@@ -36,10 +35,15 @@ export function PdpPurchase({
   }
 
   return (
-    <div className="bg-[#F4F2EC] px-6 py-10 sm:px-10 md:py-14 lg:px-14">
+    <div className="bg-[#F4F2EC] px-6 py-10 sm:px-10 md:py-12 lg:px-14">
       <h1 className="font-serif text-4xl font-normal leading-tight tracking-tight text-[#1a120f] sm:text-[2.75rem]">
         {product.name}
       </h1>
+      {madeInRwanda ? (
+        <p className="mt-3 inline-block border border-[#2a1b12]/25 px-2.5 py-1 text-[0.65rem] font-bold tracking-[0.14em] text-[#2a1b12] uppercase">
+          Made in Rwanda
+        </p>
+      ) : null}
       <p className="mt-4 font-serif text-lg font-bold text-[#1a120f]">{price}</p>
 
       {summary ? (
@@ -49,25 +53,23 @@ export function PdpPurchase({
       ) : null}
 
       <div className="mt-8">
-        <p className="font-serif text-xs font-bold tracking-[0.14em] text-[#1a120f]">
-          Quantity
-        </p>
+        <p className="font-serif text-xs font-bold tracking-[0.14em] text-[#1a120f]">Quantity</p>
         <div className="mt-3 inline-flex min-h-11 items-stretch border border-gray-400">
           <button
             type="button"
-            className="min-w-11 px-3 text-lg"
+            className="min-h-11 min-w-11 px-3 text-lg"
             aria-label="Decrease quantity"
             disabled={!inStock}
             onClick={() => onQuantityChange(quantity - 1)}
           >
             −
           </button>
-          <span className="flex min-w-12 items-center justify-center border-x border-gray-400 text-sm font-bold">
+          <span className="flex min-h-11 min-w-12 items-center justify-center border-x border-gray-400 text-sm font-bold">
             {quantity}
           </span>
           <button
             type="button"
-            className="min-w-11 px-3 text-lg"
+            className="min-h-11 min-w-11 px-3 text-lg"
             aria-label="Increase quantity"
             disabled={!inStock}
             onClick={() => onQuantityChange(quantity + 1)}
@@ -76,6 +78,12 @@ export function PdpPurchase({
           </button>
         </div>
       </div>
+
+      {inStock ? (
+        <p className="mt-4 text-xs font-bold tracking-[0.12em] text-[#2a1b12] uppercase">In stock</p>
+      ) : (
+        <p className="mt-4 text-xs font-bold tracking-[0.12em] text-[#3f2a22] uppercase">Out of stock</p>
+      )}
 
       {inStock ? (
         <div className="mt-8 flex flex-col gap-3">
@@ -95,7 +103,7 @@ export function PdpPurchase({
           </button>
         </div>
       ) : (
-        <p className="mt-8 font-serif text-lg text-[#3f2a22]">This sample is out of stock.</p>
+        <p className="mt-8 font-serif text-lg text-[#3f2a22]">This product is currently unavailable.</p>
       )}
 
       {notice ? (
@@ -104,20 +112,18 @@ export function PdpPurchase({
         </p>
       ) : null}
 
-      <PdpAccordion
-        items={[
-          {
-            id: "ingredients",
-            title: "INGREDIENTS",
-            body: ingredients,
-          },
-          {
-            id: "use",
-            title: "USE & STORAGE",
-            body: useStorage,
-          },
-        ]}
-      />
+      {ingredients || useStorage ? (
+        <PdpAccordion
+          items={[
+            ...(ingredients
+              ? [{ id: "ingredients", title: "INGREDIENTS", body: ingredients }]
+              : []),
+            ...(useStorage
+              ? [{ id: "use", title: "USE & STORAGE", body: useStorage }]
+              : []),
+          ]}
+        />
+      ) : null}
     </div>
   )
 }

@@ -1,6 +1,7 @@
 import { createClient, type SupabaseClient } from "@supabase/supabase-js"
 
 import { setAccessTokenProvider } from "../api/client.ts"
+import { compressProductImage } from "./compressImage.ts"
 
 let client: SupabaseClient | null = null
 
@@ -33,12 +34,13 @@ export function bindApiAuth(): void {
 }
 
 export async function uploadProductImage(file: File): Promise<string> {
-  const extension = file.name.split(".").pop()?.toLowerCase() ?? ""
+  const prepared = await compressProductImage(file)
+  const extension = prepared.name.split(".").pop()?.toLowerCase() ?? ""
   const suffix = /^[a-z0-9]+$/.test(extension) ? `.${extension}` : ""
   const path = `${crypto.randomUUID()}${suffix}`
   const supabase = getSupabase()
-  const { error } = await supabase.storage.from("product-images").upload(path, file, {
-    contentType: file.type || "application/octet-stream",
+  const { error } = await supabase.storage.from("product-images").upload(path, prepared, {
+    contentType: prepared.type || "image/jpeg",
     upsert: false,
   })
   if (error) throw error

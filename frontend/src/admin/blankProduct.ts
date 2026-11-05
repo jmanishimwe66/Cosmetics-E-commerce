@@ -3,6 +3,7 @@ import type { AdminProduct } from "./types.ts"
 export function blankProduct(): AdminProduct {
   return {
     id: "",
+    slug: "",
     title: "",
     price: 0,
     subtitle: "",

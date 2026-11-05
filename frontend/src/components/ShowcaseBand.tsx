@@ -17,9 +17,9 @@ export function ShowcaseBand() {
           </Link>
         </div>
         {showcaseCollectionTiles.map((item) => (
-          <div className="best-tile" key={item.src}>
+          <Link className="best-tile best-tile-link" key={item.slug} to={`/shop/${item.slug}`}>
             <img src={item.src} alt={item.alt} loading="lazy" decoding="async" />
-          </div>
+          </Link>
         ))}
       </div>
 
@@ -31,13 +31,13 @@ export function ShowcaseBand() {
             different
           </h2>
           <p>
-            We believe clean beauty should restore both skin and planet. By upcycling coffee waste
-            into nourishing skin treatments and developing our own recycled packaging, Grece Fav
-            Cycles delivers premium, zero-waste cosmetics that create dignified jobs for local youth
-            and champion sustainable Rwandan craftsmanship.
+            Our story began behind a coffee counter. As a barista, Grace watched used coffee
+            grounds being discarded every day. Curious about their potential, she took them to the
+            laboratory and began experimenting. That curiosity eventually became Grece Fav Cycles, a
+            growing Rwandan skincare business.
           </p>
           <Link className="showcase-btn" to="/story">
-            Read our story
+            Meet Grace
           </Link>
         </div>
         <div className="why-photo-grid">

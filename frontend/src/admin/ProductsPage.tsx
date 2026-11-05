@@ -4,6 +4,7 @@ import { IconCopy, IconPencil, IconPlus, IconSearch, IconTrash } from "./icons.t
 import { Link, useNavigate } from "react-router-dom"
 
 import { useAdminProducts } from "../api/hooks.ts"
+import { adminProductCoverUrl } from "../lib/adminProductMedia.ts"
 import { formatRwfAmount } from "../lib/price.ts"
 import { StatusBadge } from "./StatusBadge.tsx"
 import { PRODUCT_CATEGORIES, type StockStatus } from "./types.ts"
@@ -107,8 +108,11 @@ export function AdminProductsPage() {
                   <td className="px-3 py-3">
                     <div className="flex items-center gap-3">
                       <span className="h-12 w-12 shrink-0 overflow-hidden bg-[#eceae6]">
-                        {product.images[0] ? (
-                          <img src={product.images[0]} alt="" />
+                        {adminProductCoverUrl(product.images, product.slug) ? (
+                          <img
+                            src={adminProductCoverUrl(product.images, product.slug)}
+                            alt=""
+                          />
                         ) : null}
                       </span>
                       <span>

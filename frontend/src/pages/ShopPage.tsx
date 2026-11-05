@@ -47,8 +47,8 @@ export function ShopPage() {
             Collection
           </h1>
           <p>
-            Coffee-born formulas for skin care—upcycled ingredients, eco-conscious packaging, and
-            sustainable luxury in every routine.
+            Made-in-Rwanda body care from Gisenyi—locally crafted formulas with upcycled coffee
+            ingredients.
           </p>
         </div>
       </section>

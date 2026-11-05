@@ -118,6 +118,10 @@ export function OrderPage() {
         </div>
       ) : (
         <div className="order-layout">
+          <p className="lede">
+            Optional: save your name and email for our records, then continue on WhatsApp to
+            confirm payment and delivery with Grece Fav Cycles.
+          </p>
           <form className="form" onSubmit={onSubmit} noValidate>
             <label>
               Name

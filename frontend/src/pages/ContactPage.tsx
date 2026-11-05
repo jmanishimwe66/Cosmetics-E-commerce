@@ -1,16 +1,18 @@
 import { useState } from "react"
 import type { FormEvent } from "react"
-import { createContact } from "../api/client.ts"
+
 import { businessEmail } from "../lib/contact.ts"
-import { userErrorMessage } from "../lib/userError.ts"
+import { whatsAppUrl } from "../lib/whatsapp.ts"
 
 type FieldErrors = {
   name?: string
   email?: string
   subject?: string
   message?: string
-  form?: string
 }
+
+const whatsAppDisplay = "+250 782 023 206"
+const whatsAppLink = whatsAppUrl("Hello Grece Fav Cycles — I have a question.")
 
 export function ContactPage() {
   const [name, setName] = useState("")
@@ -18,53 +20,39 @@ export function ContactPage() {
   const [subject, setSubject] = useState("")
   const [message, setMessage] = useState("")
   const [errors, setErrors] = useState<FieldErrors>({})
-  const [pending, setPending] = useState(false)
-  const [reference, setReference] = useState<string | null>(null)
+  const [sent, setSent] = useState(false)
 
-  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+  function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const next = validate(name, email, subject, message)
     setErrors(next)
     if (Object.keys(next).length > 0) return
 
-    setPending(true)
-    setReference(null)
-    try {
-      const created = await createContact({
-        name: name.trim(),
-        email: email.trim(),
-        subject: subject.trim(),
-        message: message.trim(),
-      })
-      setReference(created.id)
-      setName("")
-      setEmail("")
-      setSubject("")
-      setMessage("")
-    } catch (reason: unknown) {
-      setErrors({
-        form: userErrorMessage(reason, "Your message could not be sent. Please try again."),
-      })
-    } finally {
-      setPending(false)
-    }
+    const mailtoHref = `mailto:${businessEmail}?subject=${encodeURIComponent(subject.trim())}&body=${encodeURIComponent(
+      `Name: ${name.trim()}\nEmail: ${email.trim()}\n\n${message.trim()}`,
+    )}`
+    window.location.href = mailtoHref
+    setSent(true)
+    setName("")
+    setEmail("")
+    setSubject("")
+    setMessage("")
   }
-
-  const mailtoHref = `mailto:${businessEmail}?subject=${encodeURIComponent(
-    subject.trim() || "GRECE FOV enquiry",
-  )}&body=${encodeURIComponent(
-    `Name: ${name.trim()}\nEmail: ${email.trim()}\n\n${message.trim()}`,
-  )}`
 
   return (
     <div className="contact-page">
       <aside className="contact-sidebar" aria-label="Contact information">
         <p className="eyebrow">Contact</p>
-        <h1 className="contact-sidebar-title">Get in touch</h1>
+        <h1 className="contact-sidebar-title">Talk to Grace&apos;s Team</h1>
         <p className="prose contact-sidebar-lede">
-          Questions, wholesale, or press—reach the GRECE FOV team. We reply by email.
+          Questions about our products, orders, or wholesale opportunities? Send us a message.
+          We&apos;d love to hear from you.
         </p>
         <dl className="contact-details">
+          <div>
+            <dt>Location</dt>
+            <dd>Gisenyi, Rubavu, Rwanda</dd>
+          </div>
           <div>
             <dt>Email</dt>
             <dd>
@@ -72,32 +60,32 @@ export function ContactPage() {
             </dd>
           </div>
           <div>
-            <dt>Location</dt>
-            <dd>Kigali, Rwanda</dd>
-          </div>
-          <div>
-            <dt>Hours</dt>
-            <dd>Mon–Fri, 9:00–17:00 (CAT)</dd>
+            <dt>WhatsApp</dt>
+            <dd>
+              <a href={whatsAppLink} target="_blank" rel="noopener noreferrer">
+                {whatsAppDisplay}
+              </a>
+            </dd>
           </div>
         </dl>
-        <p className="contact-sidebar-note">
-          Prefer your own mail app?{" "}
-          <a className="text-link" href={mailtoHref}>
-            Compose an email
-          </a>
-          .
-        </p>
       </aside>
 
       <section className="contact-panel" aria-label="Send a message">
         <h2 className="contact-panel-title">Send a message</h2>
         <p className="prose contact-panel-lede">
-          Your note is delivered to our inbox. This form does not place an order.
+          Your email app will open with your message addressed to our team.
         </p>
+        {sent ? (
+          <p className="contact-success" role="status">
+            If your email app opened, send the message from there. We will reply to{" "}
+            {businessEmail} as soon as we can.
+          </p>
+        ) : null}
         <form className="form contact-form" onSubmit={onSubmit} noValidate>
           <label>
             Name
             <input
+              className="min-h-11"
               value={name}
               maxLength={120}
               autoComplete="name"
@@ -108,6 +96,7 @@ export function ContactPage() {
           <label>
             Email
             <input
+              className="min-h-11"
               type="email"
               value={email}
               autoComplete="email"
@@ -117,29 +106,26 @@ export function ContactPage() {
           </label>
           <label>
             Subject
-            <input value={subject} maxLength={160} onChange={(event) => setSubject(event.target.value)} />
+            <input
+              className="min-h-11"
+              value={subject}
+              maxLength={160}
+              onChange={(event) => setSubject(event.target.value)}
+            />
             {errors.subject ? <span className="field-error">{errors.subject}</span> : null}
           </label>
           <label>
             Message
-            <textarea value={message} maxLength={4000} onChange={(event) => setMessage(event.target.value)} />
+            <textarea
+              className="min-h-28"
+              value={message}
+              maxLength={4000}
+              onChange={(event) => setMessage(event.target.value)}
+            />
             {errors.message ? <span className="field-error">{errors.message}</span> : null}
           </label>
-          {errors.form ? (
-            <p className="status error" role="alert">
-              {errors.form}{" "}
-              <a className="text-link" href={mailtoHref}>
-                Send via email instead
-              </a>
-            </p>
-          ) : null}
-          {reference ? (
-            <p className="status" role="status">
-              Message sent to {businessEmail}. Reference {reference}.
-            </p>
-          ) : null}
-          <button className="button" type="submit" disabled={pending}>
-            {pending ? "Sending…" : "Send message"}
+          <button className="button min-h-11" type="submit">
+            Send via email
           </button>
         </form>
       </section>

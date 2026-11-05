@@ -5,33 +5,27 @@ import { storyPhotos } from "../lib/photos.ts"
 const chapters = [
   {
     index: "01",
-    code: "CH-01",
-    title: "What we do",
+    title: "Meet Grace",
     paragraphs: [
-      "Grece Fav Cycles transforms coffee residues into high-performance, circular body and skin care. Founded by Umubyeyi Grace, we create quality body scrubs, washes, soaps, jellies, and lip care that address real skin challenges while curbing environmental pollution.",
-      "Every product is proudly Made-in-Rwanda—offering transparent, affordable luxury that reduces reliance on imported cosmetics and empowers local youth through sustainable manufacturing.",
+      "Umubyeyi Grace studied Food Biotechnology. While working as a barista, she noticed how much coffee residue was discarded every day. She began taking it to the laboratory to explore its potential. What started as an experiment eventually became Grece Fav Cycles.",
     ],
-    image: storyPhotos.origin,
+    image: storyPhotos.meetGrace,
   },
   {
     index: "02",
-    code: "CH-02",
-    title: "Inspiration & background",
+    title: "What We Make",
     paragraphs: [
-      "We began with a simple question: what if coffee’s rich nutrient potential extended beyond the cup? By repurposing discarded coffee grounds from local growers and roasters, we turn waste into skin-nourishing actives.",
-      "Driven by a passion for environmental care and economic growth, Grece Fav Cycles bridges local heritage with circular innovation—building a sustainable loop from crop to cosmetic and back to the earth.",
+      "Today, Grace and her team produce skincare products in Rwanda, including body wash, body jelly, lip care, and soap. By finding new uses for discarded coffee grounds, we’re creating locally made products while reducing waste.",
     ],
-    image: storyPhotos.material,
+    image: storyPhotos.whatWeMake,
   },
   {
     index: "03",
-    code: "CH-03",
-    title: "Where we are",
+    title: "Where We’re Going",
     paragraphs: [
-      "Based in Rwanda, we work directly alongside local coffee-growing communities to craft, test, and package our formulas locally.",
-      "As we expand, we are pioneering eco-friendly packaging crafted from recycled raw materials—improving product protection, minimizing waste, and elevating Made-in-Rwanda cosmetics onto the global luxury stage.",
+      "From Gisenyi, we’re strengthening production, improving packaging, and expanding our reach across Rwanda. Our ambition is to build a recognized Made-in-Rwanda skincare brand that can eventually reach international markets.",
     ],
-    image: storyPhotos.craft,
+    image: storyPhotos.whereGoing,
   },
 ]
 
@@ -62,26 +56,21 @@ export function StoryPage() {
         ))}
 
         <article className="story-module">
-          <div className="story-copy-tile dark">
+          <div className="story-copy-tile dark story-chapter-cta">
             <span className="eyebrow light">Chapter 04</span>
-            <h2>The range</h2>
+            <h2>Explore Our Products</h2>
             <p className="prose">
-              Toners, moisturizers, lip color, and hair care—each formula ties back to the coffee loop
-              with ingredients you can read and routines you can keep.
+              Discover our growing collection of Made-in-Rwanda skincare products, from everyday
+              body care to our Tabithy soap collection.
             </p>
             <div className="actions">
               <Link className="pill-btn light" to="/shop">
-                Shop the collection
+                Shop the Collection
               </Link>
               <Link className="pill-btn outline-light" to="/contact">
-                Business enquiry
+                Ask About Wholesale
               </Link>
             </div>
-          </div>
-          <div className="range-grid">
-            {storyPhotos.range.map((photo) => (
-              <img key={photo.alt} src={photo.src} alt={photo.alt} loading="lazy" />
-            ))}
           </div>
         </article>
       </div>

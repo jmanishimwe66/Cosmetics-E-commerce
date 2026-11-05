@@ -4,12 +4,10 @@ import heroPreFooter from "../assets/images/P1059038 copy.jpg"
 import productBodyWash from "../assets/images/Background Change Design.jpg"
 import productSoapBox from "../assets/images/Background Change Design (1).jpg"
 import productJelly from "../assets/images/Untitled design.jpg"
-import productLipGloss from "../assets/images/Untitled design (1).jpg"
 import coffeeGroundsPour from "../assets/images/coffee-grounds-pour.png"
-import storyWhatWeDo from "../assets/images/P1059003 copy.jpg"
 import storyInspiration from "../assets/images/P1059050 copy.jpg"
 import storyProductLineup from "../assets/images/grece-fav-product-lineup.png"
-import storyWhereWeAre from "../assets/images/P1059001 copy.jpg"
+import gracePortrait from "../assets/images/P1059003 copy.jpg"
 
 export const landingHeroPhoto = {
   src: heroLanding,
@@ -27,26 +25,36 @@ export const lineupPhoto = {
 }
 
 export const samplePhotos: Record<string, string> = {
-  "rosewater-toner": productSoapBox,
+  "grece-fav-body-jelly": productJelly,
+  "grece-fav-body-wash": productBodyWash,
+  "tabithy-bath-soap": productSoapBox,
   "daily-moisturizer": productJelly,
-  "soft-matte-lipstick": productLipGloss,
   "repair-shampoo": productBodyWash,
+  "rosewater-toner": productSoapBox,
 }
 
 export const showcaseCollectionTiles = [
   {
+    slug: "grece-fav-body-jelly",
+    src: productJelly,
+    alt: "Grece Fav body jelly jar.",
+  },
+  {
+    slug: "grece-fav-body-wash",
     src: productBodyWash,
     alt: "Grece Fav body wash with gold pump.",
   },
   {
-    src: productJelly,
-    alt: "Grece Fav jelly jar.",
-  },
-  {
-    src: productLipGloss,
-    alt: "Grece Fav lip gloss.",
+    slug: "tabithy-bath-soap",
+    src: productSoapBox,
+    alt: "Tabithy bath soap packaging.",
   },
 ] as const
+
+export const gracePortraitPhoto = {
+  src: gracePortrait,
+  alt: "Umubyeyi Grace, founder of Grece Fav Cycles.",
+}
 
 export const showcaseWhyPhotos = [
   {
@@ -60,22 +68,13 @@ export const showcaseWhyPhotos = [
 ] as const
 
 export const storyPhotos = {
-  origin: {
-    src: storyWhatWeDo,
-    alt: "Grece Fav body butter in daily skincare ritual.",
-  },
-  material: {
+  meetGrace: gracePortraitPhoto,
+  whatWeMake: {
     src: storyProductLineup,
-    alt: "Grece Fav and Tabithy body care collection on a marble surface.",
+    alt: "Grece Fav and Tabithy body care collection.",
   },
-  craft: {
-    src: storyWhereWeAre,
-    alt: "Grece Fav body butter product.",
+  whereGoing: {
+    src: coffeeGroundsPour,
+    alt: "Fresh coffee grounds for upcycled skincare.",
   },
-  range: [
-    { src: productSoapBox, alt: "Tabithy bath soap." },
-    { src: productBodyWash, alt: "Grece Fav body wash." },
-    { src: productJelly, alt: "Grece Fav jelly." },
-    { src: productLipGloss, alt: "Grece Fav lip gloss." },
-  ],
 }

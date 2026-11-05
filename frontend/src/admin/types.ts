@@ -6,6 +6,7 @@ export type FulfillmentStatus = "unfulfilled" | "processing" | "shipped" | "deli
 
 export type AdminProduct = {
   id: string
+  slug: string
   title: string
   price: number
   subtitle: string
