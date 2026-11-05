@@ -7,7 +7,7 @@ import productJelly from "../assets/images/Untitled design.jpg"
 import coffeeGroundsPour from "../assets/images/coffee-grounds-pour.png"
 import storyInspiration from "../assets/images/P1059050 copy.jpg"
 import storyProductLineup from "../assets/images/grece-fav-product-lineup.png"
-import gracePortrait from "../assets/images/P1059003 copy.jpg"
+import gracePortrait from "../assets/images/grace-portrait.png"
 
 export const landingHeroPhoto = {
   src: heroLanding,
